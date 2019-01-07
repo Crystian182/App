@@ -1,0 +1,24 @@
+<!--
+  Generated template for the LoggedinPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>loggedin</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+{{ email }}
+  <ion-list>
+    <ion-item *ngFor="let u of users" (click)="goToDetail(u.name)">
+      <h2>{{ u.name }}</h2>
+      <p>{{ u.email }}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
