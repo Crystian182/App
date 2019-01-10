@@ -16,6 +16,7 @@ export class RestProvider {
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
   }
+  
 
   getUsers() {
     return new Promise(resolve => {
