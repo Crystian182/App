@@ -16,6 +16,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { RestProvider } from '../providers/rest/rest';
 import { LoginProvider } from '../providers/login/login';
 import { StudentHomePage } from '../pages/student-home/student-home';
+import { LessonProvider } from '../providers/lesson/lesson';
+import { CourseProvider } from '../providers/course/course';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { StudentHomePage } from '../pages/student-home/student-home';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
-    LoginProvider
+    LoginProvider,
+    LessonProvider,
+    CourseProvider
   ]
 })
 export class AppModule {}

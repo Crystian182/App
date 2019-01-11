@@ -5,16 +5,53 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Home Studente</ion-title>
   </ion-navbar>
 </ion-header>
 
 
+
+
+
 <ion-content padding>
-{{ user.name }} {{ user.surname }} è un {{ user.type }} 
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Ciao {{ user.name }} {{ user.surname }}
+        </ion-card-title>
+    </ion-card-content>
+  
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Lezioni Odierne
+        </ion-card-title>
+  
+        <ion-list>
+          <button ion-item *ngFor="let l of lessons" (click)="itemSelected(item)">
+            {{ l.idlesson }}
+          </button>  
+        </ion-list>
+
+    </ion-card-content>
+  
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Corsi
+        </ion-card-title>
+  
+    </ion-card-content>
+  
+  </ion-card>
 </ion-content>
 
