@@ -21,12 +21,12 @@ export class StudentHomePage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public restProvider: RestProvider) {
-        this.user = this.navParams.get('user');
-        console.log(this.user.token)
+        
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StudentHomePage');
+    this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
+    console.log(this.user.token)
   }
 
   

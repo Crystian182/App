@@ -1,27 +1,43 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
 
-  <ion-list inset>
-
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input type="text" #email></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" #password></ion-input>
-    </ion-item>
-
-</ion-list>
-
-<div padding>
-  <button ion-button block (click)="signInUser()">Login</button>
-</div>
-
-</ion-content>
+<!-- -->
+<ion-content padding class="animated fadeIn login auth-page">
+    <div class="login-content">
+  
+      <!-- Logo -->
+      <div padding-horizontal text-center class="animated fadeInDown">
+        <div class="logo"></div>
+      </div>
+  
+      <!-- Login form -->
+      <form class="list-form">
+        <ion-item>
+          <ion-label floating style="color: black">
+            <ion-icon name="mail" item-start class="text-primary" style="color: black"></ion-icon>
+            Email
+          </ion-label>
+          <ion-input type="email" #email></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label floating style="color: black">
+            <ion-icon name="lock" item-start class="text-primary" style="color: black"></ion-icon>
+            Password
+          </ion-label>
+          <ion-input type="password" #password></ion-input>
+        </ion-item>
+      </form>
+  
+      <p></p>
+  
+      <div>
+        <button ion-button icon-start block color="dark" tappable (click)="signInUser()">
+          <ion-icon name="log-in"></ion-icon>
+          LOGIN
+        </button>
+  
+        
+      </div>
+  
+    </div>
+  </ion-content>

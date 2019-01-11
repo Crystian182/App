@@ -12,10 +12,12 @@ import { LoggedinPage } from "../pages/loggedin/loggedin";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RestProvider } from '../providers/rest/rest';
 import { LoginProvider } from '../providers/login/login';
 import { StudentHomePage } from '../pages/student-home/student-home';
+import { TeacherHomePage } from '../pages/teacher-home/teacher-home';
+import { TokenInterceptor } from '../token-interceptor/token-interceptor.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { StudentHomePage } from '../pages/student-home/student-home';
     FirstPage,
     RegisterPage,
     LoggedinPage,
-    StudentHomePage
+    StudentHomePage,
+    TeacherHomePage
   ],
   imports: [
     BrowserModule,
@@ -40,14 +43,19 @@ import { StudentHomePage } from '../pages/student-home/student-home';
     FirstPage,
     RegisterPage,
     LoggedinPage,
-    StudentHomePage
+    StudentHomePage,
+    TeacherHomePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
-    LoginProvider
+    LoginProvider, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ]
 })
 export class AppModule {}

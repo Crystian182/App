@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
+import { User } from '../../models/User';
 
 /**
  * Generated class for the TeacherHomePage page.
@@ -14,12 +16,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'teacher-home.html',
 })
 export class TeacherHomePage {
+  user: User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public restProvider: RestProvider) {
+        this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TeacherHomePage');
+    
+    this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
+    console.log(this.user);
   }
 
 }

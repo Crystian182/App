@@ -12,11 +12,10 @@ import { Observable } from "rxjs/Observable";
 export class RestProvider {
 
   apiUrl = 'https://jsonplaceholder.typicode.com/users';
-
+ 
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
   }
-  
 
   getUsers() {
     return new Promise(resolve => {

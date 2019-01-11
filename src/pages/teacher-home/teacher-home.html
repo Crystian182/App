@@ -5,14 +5,17 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>teacherHome</ion-title>
+  <ion-navbar hideBackButton >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+{{ user.name }} {{ user.surname }} è un {{ user.type }} 
 </ion-content>
+
+
