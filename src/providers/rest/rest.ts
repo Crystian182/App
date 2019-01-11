@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
+import { Lesson } from '../../models/Lesson';
 
 /*
   Generated class for the RestProvider provider.
@@ -12,7 +13,8 @@ import { Observable } from "rxjs/Observable";
 export class RestProvider {
 
   apiUrl = 'https://jsonplaceholder.typicode.com/users';
- 
+
+
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
   }
@@ -31,5 +33,6 @@ export class RestProvider {
   getUsersObs(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
+ 
 
 }

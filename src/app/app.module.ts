@@ -18,6 +18,8 @@ import { LoginProvider } from '../providers/login/login';
 import { StudentHomePage } from '../pages/student-home/student-home';
 import { TeacherHomePage } from '../pages/teacher-home/teacher-home';
 import { TokenInterceptor } from '../token-interceptor/token-interceptor.component';
+import { LessonProvider } from '../providers/lesson/lesson';
+import { CourseProvider } from '../providers/course/course';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { TokenInterceptor } from '../token-interceptor/token-interceptor.compone
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    LessonProvider,
+    CourseProvider
   ]
 })
 export class AppModule {}
