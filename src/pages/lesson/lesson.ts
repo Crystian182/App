@@ -12,7 +12,7 @@ import { ClassPage } from '../class/class';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-lesson',
   templateUrl: 'lesson.html',

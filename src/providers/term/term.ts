@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Term } from '../../models/Term';
+import { GlobalProvider } from '../global/global';
 
 /*
   Generated class for the TermProvider provider.
@@ -12,9 +13,9 @@ import { Term } from '../../models/Term';
 @Injectable()
 export class TermProvider {
 
-  getTermByAcademicYearUrl: string = 'http://localhost:8080/SpringApp/academicyear/getTermsByAaId';
+  getTermByAcademicYearUrl: string = 'http://' + this.global.address + ':8080/SpringApp/academicyear/getTermsByAaId';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello TermProvider Provider');
   }
 

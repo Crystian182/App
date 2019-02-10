@@ -10,7 +10,7 @@ import { Class } from '../../models/Class';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-class',
   templateUrl: 'class.html',
@@ -24,20 +24,6 @@ export class ClassPage {
       this.classroom = classroom;
       console.log(this.classroom)
     })
-  }
-
-  loadMap(){
-
-    let latLng = new google.maps.LatLng(-34.9290, 138.6010);
-
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
   }
 
   ionViewDidLoad() {
