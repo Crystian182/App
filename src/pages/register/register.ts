@@ -10,7 +10,7 @@ import { AngularFireAuth } from "angularfire2/auth";*/
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',

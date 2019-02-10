@@ -1,0 +1,61 @@
+<!--
+  Generated template for the ChatPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<ion-header>
+  <ion-navbar hideBackButton color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Chat</ion-title>    
+  </ion-navbar>
+</ion-header>
+
+<div class="my-overlay" padding [hidden]="!loading">
+    <ion-row justify-content-center align-items-center style="padding-top: 100px">
+        <img src="assets/imgs/loading.gif" style="text-align: center"/>
+      </ion-row>
+</div>
+
+<ion-content>  
+          
+    <ion-list *ngIf="previewChat.length > 0">
+  
+      <button ion-item (click)="openChat(chat)" *ngFor="let chat of previewChat">
+        <ion-avatar item-left>
+          <img *ngIf="chat.toUser" [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + chat.toUser.propic)" onError="this.src='./assets/to-user.jpg';"/>
+          <img *ngIf="chat.subject" [src]="'./assets/subject.png'"/>
+        </ion-avatar>
+        
+        
+        <div *ngIf="chat.toUser">
+          <h2>{{chat.toUser.name}} {{chat.toUser.surname}}</h2>
+          <p *ngIf="chat.lastMessage?.sender?.iduser!=user.iduser && chat.lastMessage?.read">{{chat.lastMessage?.text}}</p>
+          <p *ngIf="chat.lastMessage?.sender?.iduser!=user.iduser && !chat.lastMessage?.read" style="font-weight: bold"><i class="fas fa-comment-alt" style="color:#68C91F"></i> {{chat.lastMessage?.text}}</p>
+          <p *ngIf="chat.lastMessage?.sender?.iduser==user.iduser">Io: {{chat.lastMessage?.text}}</p>
+        </div>
+        <div *ngIf="chat.subject">
+            <h2>{{chat.subject.name}}</h2>
+          <p *ngIf="chat.lastMessage && chat.lastMessage?.sender?.iduser && !chat.lastMessage?.read" style="font-weight: bold"><i class="fas fa-comment-alt" style="color:#68C91F"></i> {{chat.lastMessage?.sender?.name}} {{chat.lastMessage?.sender?.surname}}: {{chat.lastMessage?.text}}</p>
+          <p *ngIf="chat.lastMessage && chat.lastMessage?.sender?.iduser != user.iduser && chat.lastMessage?.read">{{chat.lastMessage?.sender?.name}} {{chat.lastMessage?.sender?.surname}}: {{chat.lastMessage?.text}}</p>
+          <p *ngIf="!chat.lastMessage">Ti sei unito a questo gruppo</p>
+          <p *ngIf="chat.lastMessage?.sender?.iduser==user.iduser">Io: {{chat.lastMessage?.text}}</p>
+        </div>
+        
+        
+      
+      </button>
+    </ion-list>
+
+        <i *ngIf="!loading" (click)="showContacts()" class="fas fa-comment-alt fa-3x float" style="text-shadow: 3px 3px 16px #272634"></i>
+
+    
+  <div *ngIf="previewChat.length == 0 && !this.starting">
+      <ion-row justify-content-center align-items-center style="padding-top: 200px">
+        <p style="color: lightgray">Nessuna chat</p>
+      </ion-row>
+  </div>
+</ion-content>

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { User } from '../../models/User';
+import { LoginProvider } from '../../providers/login/login';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the TeacherHomePage page.
@@ -10,7 +12,7 @@ import { User } from '../../models/User';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-teacher-home',
   templateUrl: 'teacher-home.html',
@@ -20,14 +22,14 @@ export class TeacherHomePage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public restProvider: RestProvider) {
-        this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-  }
+    public restProvider: RestProvider, public loginService: LoginProvider) {
+      this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
+
+      this.loginService.isTokenValid().subscribe(res => {
+      })
+    }
 
   ionViewDidLoad() {
-    
-    this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-    console.log(this.user);
   }
 
 }

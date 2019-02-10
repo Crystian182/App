@@ -1,0 +1,45 @@
+<!--
+  Generated template for the ContactsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-searchbar [(ngModel)]="keyword" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" placeholder="Cerca contatti..."></ion-searchbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list *ngIf="previewChat.length > 0">
+  
+      <button ion-item (click)="openChat(chat)" *ngFor="let chat of previewChat">
+        <ion-avatar item-left>
+          <img *ngIf="chat.toUser" [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + chat.toUser.propic)" onError="this.src='./assets/to-user.jpg';"/>
+          <img *ngIf="chat.subject" [src]="'./assets/subject.png'"/>
+        </ion-avatar>
+        <h2 *ngIf="chat.subject">{{chat.subject.name}} {{ chat.subject.term.academicYear.year}}/{{ chat.subject.term.academicYear.year + 1}}</h2>
+        <h6 *ngIf="chat.subject">{{ chat.subject.degreecourseDTO.name }}</h6>
+        <h2 *ngIf="chat.toUser">{{chat.toUser.name}} {{chat.toUser.surname}}</h2>
+      </button>
+    </ion-list>
+
+    <div *ngIf="searching">
+      <ion-grid style="height: 200%">
+        <ion-row justify-content-center align-items-center style="height: 100%">
+          <p style="color: lightgray">Cerco...</p>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="previewChat.length == 0 && keyword != undefined">
+      <ion-grid style="height: 200%">
+        <ion-row justify-content-center align-items-center style="height: 100%">
+          <p style="color: lightgray">Nessun risultato</p>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>

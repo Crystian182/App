@@ -15,7 +15,6 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
 .primary-bg {
     background-color: color($colors, primary) !important;
   }
@@ -76,7 +75,7 @@
   //
   .dark-trans,
   .toast-md .toast-wrapper {
-    background-color: rgba(0, 0, 0, .4);
+    background-color: #222222
   }
   
   

@@ -1,7 +1,7 @@
 export interface User{
     iduser?: number;
-    name: string;
-    surname: string;
+    name?: string;
+    surname?: string;
     email?: string;
     dateBirth?: Date;
     placeBirth?: string;
@@ -13,4 +13,5 @@ export interface User{
     serial_number?: number;
     type?: string;
     token?: string;
+    propic?: String;
   }

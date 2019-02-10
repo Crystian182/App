@@ -6,7 +6,7 @@
           <ion-row>
             <ion-col col-4>
                 <div class="user-avatar">
-                  <img src="../assets/imgs/leaci.jpg">
+                  <img [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + user.propic)" onError="this.src='./assets/to-user.jpg';"/>
                 </div>
             </ion-col>
             <ion-col padding-top col-8>

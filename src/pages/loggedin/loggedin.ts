@@ -10,7 +10,7 @@ import { RestProvider } from "../../providers/rest/rest";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-loggedin',
   templateUrl: 'loggedin.html',

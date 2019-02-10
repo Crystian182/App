@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
@@ -20,6 +19,28 @@ import { TeacherHomePage } from '../pages/teacher-home/teacher-home';
 import { TokenInterceptor } from '../token-interceptor/token-interceptor.component';
 import { LessonProvider } from '../providers/lesson/lesson';
 import { CourseProvider } from '../providers/course/course';
+import { ChatProvider } from '../providers/chat/chat';
+import { EmojiProvider } from '../providers/emoji/emoji';
+import { ChatChannelPage } from '../pages/chat-channel/chat-channel';
+import { ChatPage } from '../pages/chat/chat';
+import { ContactsPage } from '../pages/contacts/contacts';
+import { DetailsPage } from '../pages/details/details';
+import { Firebase } from '@ionic-native/firebase';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { Push } from '@ionic-native/push';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { RelativeTime } from '../pipes/relative-time';
+import { GlobalProvider } from '../providers/global/global';
+
+const firebase = {
+  apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
+    authDomain: "uniapp-86a68.firebaseapp.com",
+    databaseURL: "https://uniapp-86a68.firebaseio.com",
+    projectId: "uniapp-86a68",
+    storageBucket: "uniapp-86a68.appspot.com",
+    messagingSenderId: "901075046844"
+}
 
 @NgModule({
   declarations: [
@@ -30,12 +51,24 @@ import { CourseProvider } from '../providers/course/course';
     RegisterPage,
     LoggedinPage,
     StudentHomePage,
-    TeacherHomePage
+    TeacherHomePage,
+    ChatChannelPage,
+    ChatPage,
+    ContactsPage,
+    DetailsPage,
+    RelativeTime
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpClientModule,
+    IonicModule.forRoot(MyApp,{
+      tabsHideOnSubPages:true,
+      tabsLayout:'icon-left',
+      preloadModules: true
+    }),
+    AngularFireModule.initializeApp(firebase), 
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,9 +79,15 @@ import { CourseProvider } from '../providers/course/course';
     RegisterPage,
     LoggedinPage,
     StudentHomePage,
-    TeacherHomePage
+    TeacherHomePage,
+    ChatChannelPage,
+    ChatPage,
+    ContactsPage,
+    DetailsPage
   ],
   providers: [
+    Push,
+    Firebase,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -59,7 +98,11 @@ import { CourseProvider } from '../providers/course/course';
       multi: true
     },
     LessonProvider,
-    CourseProvider
+    CourseProvider,
+    ChatProvider,
+    EmojiProvider,
+    GlobalProvider,
+    //FcmProvider
   ]
 })
 export class AppModule {}

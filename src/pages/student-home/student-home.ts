@@ -6,6 +6,7 @@ import { Lesson } from '../../models/Lesson';
 import { LessonProvider } from '../../providers/lesson/lesson';
 import { CourseProvider } from '../../providers/course/course';
 import { DegreeCourse } from '../../models/DegreeCourse';
+import { LoginProvider } from '../../providers/login/login';
 
 /**
  * Generated class for the StudentHomePage page.
@@ -14,7 +15,7 @@ import { DegreeCourse } from '../../models/DegreeCourse';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-student-home',
   templateUrl: 'student-home.html',
@@ -28,27 +29,25 @@ export class StudentHomePage {
     public navParams: NavParams,
     public restProvider: RestProvider,
     public lessonProvider: LessonProvider,
-    public courseProvider: CourseProvider) {
-        this.user = this.navParams.get('user');
-        console.log(this.user.token);
+    public courseProvider: CourseProvider,
+    public loginService: LoginProvider) {
+      this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
 
-        this.lessonProvider.getAllLessonsByCourseAndTerm(1,1).subscribe(lessons=>{
-          this.lessons = lessons;
-          console.log(this.lessons)
-        });
-
-        this.courseProvider.getAll().subscribe(courses=>{
-          this.courses= courses;
-          console.log(this.courses)
-        })
-    
-        
+      
+          this.lessonProvider.getAllLessonsByCourseAndTerm(1,1).subscribe(lessons=>{
+            this.lessons = lessons;
+            console.log(this.lessons)
+          });
+  
+          this.courseProvider.getAll().subscribe(courses=>{
+            this.courses= courses;
+            console.log(this.courses)
+          })
   }
 
   ionViewDidLoad() {
-    this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-    console.log(this.user.token)
-    
   }
+
+  
 
   }

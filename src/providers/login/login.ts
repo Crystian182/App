@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from "rxjs/operators";
+import { map } from 'rxjs/operators/map';
+import { Observable } from 'rxjs';
+import { GlobalProvider } from '../global/global';
 
 /*
   Generated class for the LoginProvider provider.
@@ -11,9 +13,10 @@ import { map } from "rxjs/operators";
 @Injectable()
 export class LoginProvider {
 
-  loginUrl: string = 'http://localhost:8080/SpringApp/public/login';
+  loginUrl: string = 'http://' + this.global.address + ':8080/SpringApp/public/login';
+  tokenCheckUrl: string = 'http://' + this.global.address + ':8080/SpringApp/public/istokenvalid';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello LoginServiceProvider Provider');
   }
 
@@ -31,4 +34,7 @@ export class LoginProvider {
         }));
       }
 
+   isTokenValid(): Observable<boolean> {
+      return this.http.get<boolean>(this.tokenCheckUrl);
+    }
 }

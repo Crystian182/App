@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { DegreeCourse } from '../../models/DegreeCourse';
+import { GlobalProvider } from '../global/global';
 
 /*
   Generated class for the CourseProvider provider.
@@ -16,9 +17,9 @@ const headers = new HttpHeaders({'Content-Type' : 'application/json'});
 export class CourseProvider {
 
 
-  getAllUrl: string = 'http://localhost:8080/SpringApp/course/getAll';
+  getAllUrl: string = 'http://' + this.global.address + ':8080/SpringApp/course/getAll';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello CourseProvider Provider');
   }
 
