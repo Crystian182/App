@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 export class LessonProvider {
 
   getAllLessonsByCourseAndTermUrl : string = 'http://localhost:8080/SpringApp/lesson/getAllLessonsByCourseAndTerm';
-
+  getLessonByIdUrl: string = 'http://localhost:8080/SpringApp/lesson/getById';
 
   constructor(public http: HttpClient) {
     console.log('Hello LessonProvider Provider');
@@ -23,4 +23,9 @@ export class LessonProvider {
     return this.http.get<Lesson[]>(this.getAllLessonsByCourseAndTermUrl + '/idcourse=' + idcourse + '&idterm=' + idterm);
   }
 
+  getById(idlesson: number): Observable<Lesson>{
+    return this.http.get<Lesson>(this.getLessonByIdUrl + '/' + idlesson);
+  }
+
+  
 }

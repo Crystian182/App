@@ -20,6 +20,11 @@ import { TeacherHomePage } from '../pages/teacher-home/teacher-home';
 import { TokenInterceptor } from '../token-interceptor/token-interceptor.component';
 import { LessonProvider } from '../providers/lesson/lesson';
 import { CourseProvider } from '../providers/course/course';
+import { UserProvider } from '../providers/user/user';
+import { TermProvider } from '../providers/term/term';
+import { LessonPage } from '../pages/lesson/lesson';
+import { ClassProvider } from '../providers/class/class';
+import { ClassPage } from '../pages/class/class';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,9 @@ import { CourseProvider } from '../providers/course/course';
     RegisterPage,
     LoggedinPage,
     StudentHomePage,
-    TeacherHomePage
+    TeacherHomePage,
+    LessonPage,
+    ClassPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,9 @@ import { CourseProvider } from '../providers/course/course';
     RegisterPage,
     LoggedinPage,
     StudentHomePage,
-    TeacherHomePage
+    TeacherHomePage,
+    LessonPage,
+    ClassPage
   ],
   providers: [
     StatusBar,
@@ -59,7 +68,10 @@ import { CourseProvider } from '../providers/course/course';
       multi: true
     },
     LessonProvider,
-    CourseProvider
+    CourseProvider,
+    UserProvider,
+    TermProvider,
+    ClassProvider
   ]
 })
 export class AppModule {}

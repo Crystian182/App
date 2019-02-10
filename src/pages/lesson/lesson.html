@@ -1,0 +1,31 @@
+<!--
+  Generated template for the LessonPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Dettagli Lezione</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding-sm class="animated fadeIn login auth-page">
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+       {{ lesson?.typeLesson.subject.name }}
+        </ion-card-title>
+        <p><b>Aula: </b>{{lesson?.classroom.name}}</p>
+        <p><b>Ora Inizio: </b>{{ start }}</p>
+        <p><b>Ora Fine: </b>{{ end}}</p>
+    </ion-card-content>
+    <button ion-button block color="dark" tappable (click)="showClass(lesson?.classroom.id)">Visualizza Dettagli Aula</button>
+  <button ion-button block color="dark" tappable>Visualizza Dettagli Insegnamento</button>
+  </ion-card>
+  
+
+</ion-content>
