@@ -32,6 +32,11 @@ import { Push } from '@ionic-native/push';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { RelativeTime } from '../pipes/relative-time';
 import { GlobalProvider } from '../providers/global/global';
+import { UserProvider } from '../providers/user/user';
+import { TermProvider } from '../providers/term/term';
+import { LessonPage } from '../pages/lesson/lesson';
+import { ClassProvider } from '../providers/class/class';
+import { ClassPage } from '../pages/class/class';
 
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
@@ -41,6 +46,7 @@ const firebase = {
     storageBucket: "uniapp-86a68.appspot.com",
     messagingSenderId: "901075046844"
 }
+
 
 @NgModule({
   declarations: [
@@ -56,7 +62,9 @@ const firebase = {
     ChatPage,
     ContactsPage,
     DetailsPage,
-    RelativeTime
+    RelativeTime,
+    LessonPage,
+    ClassPage
   ],
   imports: [
     BrowserModule,
@@ -83,7 +91,9 @@ const firebase = {
     ChatChannelPage,
     ChatPage,
     ContactsPage,
-    DetailsPage
+    DetailsPage,
+    LessonPage,
+    ClassPage
   ],
   providers: [
     Push,
@@ -103,6 +113,9 @@ const firebase = {
     EmojiProvider,
     GlobalProvider,
     //FcmProvider
+    UserProvider,
+    TermProvider,
+    ClassProvider
   ]
 })
 export class AppModule {}

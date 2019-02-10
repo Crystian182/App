@@ -14,7 +14,7 @@ import { GlobalProvider } from '../global/global';
 export class LessonProvider {
 
   getAllLessonsByCourseAndTermUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getAllLessonsByCourseAndTerm';
-
+  getLessonByIdUrl: string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getById';
 
   constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello LessonProvider Provider');
@@ -24,4 +24,9 @@ export class LessonProvider {
     return this.http.get<Lesson[]>(this.getAllLessonsByCourseAndTermUrl + '/idcourse=' + idcourse + '&idterm=' + idterm);
   }
 
+  getById(idlesson: number): Observable<Lesson>{
+    return this.http.get<Lesson>(this.getLessonByIdUrl + '/' + idlesson);
+  }
+
+  
 }
