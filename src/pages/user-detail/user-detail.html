@@ -1,0 +1,74 @@
+<!--
+  Generated template for the StudentHomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Home Studente</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card class="maincard">
+      <ion-card class="secondcard" style="padding: 0">
+      <form (ngSubmit)="update()">
+          <ion-item>
+            <ion-label>Nome</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="user.name" name="name"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label>Cognome</ion-label>
+              <ion-input disabled="true" type="text" [(ngModel)]="user.surname" name="surname"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Data di nascita</ion-label>
+                <ion-input disabled="true" type="text" [(ngModel)]="dob" name="dateBirth"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label>Città di nascita</ion-label>
+                  <ion-input disabled="true" type="text" [(ngModel)]="user.placeBirth" name="placeBirth"></ion-input>
+                </ion-item>
+              <ion-item>
+                  <ion-label>Codice fiscale</ion-label>
+                  <ion-input disabled="true" type="text" [(ngModel)]="user.ssn" name="ssn"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Residenza</ion-label>
+                    <ion-input type="text" [(ngModel)]="user.residence" name="residence"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>Domicilio</ion-label>
+                      <ion-input type="text" [(ngModel)]="user.domicile" name="domicile"></ion-input>
+                    </ion-item>
+                  <ion-item>
+                      <ion-label>Email</ion-label>
+                      <ion-input disabled="true" type="text" [(ngModel)]="user.email" name="email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Telefono</ion-label>
+                        <ion-input type="number" [(ngModel)]="user.phone" name="phone"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                          <ion-label>Sesso</ion-label>
+                          <ion-input disabled="true" type="text" [(ngModel)]="user.sex" name="sex"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Nazionalità</ion-label>
+                            <ion-input disabled="true" type="text" [(ngModel)]="user.citizenship" name="citizenship"></ion-input>
+                          </ion-item>
+          <button ion-button icon-left small full menuClose type="submit">
+              <ion-icon name="refresh"></ion-icon>
+              Aggiorna
+            </button>
+        </form>
+      </ion-card>
+
+    </ion-card>
+  </ion-content>
+  
+  

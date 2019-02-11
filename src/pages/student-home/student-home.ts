@@ -7,13 +7,20 @@ import { LessonProvider } from '../../providers/lesson/lesson';
 import { CourseProvider } from '../../providers/course/course';
 import { DegreeCourse } from '../../models/DegreeCourse';
 import { LoginProvider } from '../../providers/login/login';
-import { UserProvider } from '../../providers/user/user';
 import { StudentHasDegreeCourse } from '../../models/StudentHasDegreeCourse';
 import { DatePipe } from '@angular/common';
 import { Term } from '../../models/Term';
 import { TermProvider } from '../../providers/term/term';
 import { LessonPage } from '../lesson/lesson';
-
+import { StudentProvider } from '../../providers/student/student';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ExamEnrollment } from '../../models/ExamEnrollment';
+import { ExamProvider } from '../../providers/exam/exam';
+import { Exam } from '../../models/Exam';
+import { FileProvider } from '../../providers/file/file';
+import { FileLesson } from '../../models/FileLesson';
+import { RecordBookPage } from '../record-book/record-book';
+import { UserDetailPage } from '../user-detail/user-detail';
 /**
  * Generated class for the StudentHomePage page.
  *
@@ -28,62 +35,76 @@ import { LessonPage } from '../lesson/lesson';
 })
 export class StudentHomePage {
   user: User;
-  lessons: Lesson[];
-  course: DegreeCourse;
-  studentHasCourse: StudentHasDegreeCourse;
-  enrollmentdate: any;
-  now: any;
-  year: any;
-  thisterm: any;
-  startterm: any;
-  endterm: any;
-  datePipe = new DatePipe('en-US');
-  terms: Term[];
-  myterms: Term[];;
+  degreeCourse: DegreeCourse;
+  enrollment: StudentHasDegreeCourse;
+  todayLessons: Lesson[];
+  exams: ExamEnrollment[];
+  lessonFiles: FileLesson[];
+  media: number = 0;
+  cfu: number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public restProvider: RestProvider,
     public lessonProvider: LessonProvider,
     public courseProvider: CourseProvider,
-    public userProvider: UserProvider,
-    public termProvider: TermProvider) {
-        this.user = this.navParams.get('user');
+    public studentProvider: StudentProvider,
+    public examProvider: ExamProvider,
+    public fileProvider: FileProvider,
+    public _DomSanitizer: DomSanitizer) {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-        console.log(this.user)
 
-
-       this.userProvider.getStudentCourse(this.user.iduser).subscribe(studentHasCourse=>{
-         this.studentHasCourse = studentHasCourse;
-         this.course = studentHasCourse.degreeCourse;
-         this.enrollmentdate =  this.datePipe.transform(studentHasCourse.date, 'y');
-         this.now = String(new Date().getFullYear());
-         this.year = this.now-this.enrollmentdate;
-       
-         console.log(studentHasCourse, this.course, this.enrollmentdate,this.year);
-
-         this.thisterm = this.datePipe.transform(Date.now(), 'dd/MM/yyyy');
-         this.terms = studentHasCourse.degreeCourse.academicYear.terms;
-         for(let t in this.terms){
-          this.startterm =  this.datePipe.transform(studentHasCourse.degreeCourse.academicYear.terms[t].start, 'dd/MM/yyyy');
-          this.endterm = this.datePipe.transform(studentHasCourse.degreeCourse.academicYear.terms[t].end, 'dd/MM/yyyy');
-          console.log(this.thisterm, this.startterm, this.endterm);
-          if(this.startterm < this.thisterm && this.thisterm < this.endterm){
-            console.log("sei qui");
-            this.termProvider.getTermByAcademicYearId(studentHasCourse.degreeCourse.academicYear.idacademicYear).subscribe(myterms=>{
-              this.myterms = myterms.filter(myterms=>this.datePipe.transform(myterms.start, 'dd/MM/yyyy')< this.thisterm && this.datePipe.transform(myterms.end, 'dd/MM/yyyy') > this.thisterm);
-              this.lessonProvider.getAllLessonsByCourseAndTerm(this.course.idcourse, this.myterms[0].idterm).subscribe(lessons=>{
-                this.lessons = lessons.filter(lessons=>this.datePipe.transform(lessons.start, 'dd/MM/yyyy') === this.thisterm);
-                
-               })
-            })
+       this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
+        console.log(enrollment)
+        this.degreeCourse = {
+          idcourse: enrollment.degreeCourse.idcourse,
+          name: enrollment.degreeCourse.name,
+          typeDegreeCourse: {
+            idtypeDegreeCourse: enrollment.degreeCourse.typeDegreeCourse.idtypeDegreeCourse,
+            name:  enrollment.degreeCourse.typeDegreeCourse.name,
+            courseType: {
+              idcourseType: enrollment.degreeCourse.typeDegreeCourse.courseType.idcourseType,
+              description: enrollment.degreeCourse.typeDegreeCourse.courseType.description,
+              duration: enrollment.degreeCourse.typeDegreeCourse.courseType.duration,
+              cfu: enrollment.degreeCourse.typeDegreeCourse.courseType.cfu
+            }
+            
+          },
+          academicYear: {
+            idacademicYear: enrollment.degreeCourse.academicYear.idacademicYear,
+            year: enrollment.degreeCourse.academicYear.year
           }
-         }
-        
-
-         
+        }
+        this.enrollment = {
+          date: enrollment.date,
+          enrollmentStatus: {
+            idenrollmentStatus: enrollment.enrollmentStatus.idenrollmentStatus,
+            description: enrollment.enrollmentStatus.description
+          }
+        }
        })
     
+       this.lessonProvider.getTodayLessons(this.user.iduser).subscribe(lessons => {
+         this.todayLessons = lessons;
+       })
+
+       this.examProvider.getRecordBook(this.user.iduser).subscribe(exams => {
+        this.exams = exams;
+        let i: number = 0;
+        for(let e of this.exams) {
+          if(e.grade != 0) {
+            this.cfu = this.cfu + e.exam.subject.cfu;
+            this.media = this.media + e.grade;
+            i++
+          }
+        }
+        this.media = this.media/i
+      })
+
+      this.fileProvider.getLastFiles(this.user.iduser).subscribe(files => {
+        this.lessonFiles = files;
+        console.log(this.lessonFiles)
+      })
         
   }
 
@@ -95,6 +116,27 @@ export class StudentHomePage {
   ionViewDidLoad() {
   }
 
-  
+  showId(n) {
+    return ("000000" + n).slice(-6);
+  }
+
+  download(idFile) {
+    console.log('downnnn')
+  }
+
+  recordbook() {
+    this.navCtrl.push(RecordBookPage, {
+      exams: this.exams,
+      degreeCourse: this.degreeCourse,
+      enrollment: this.enrollment,
+      cfu: this.cfu,
+      media: this.media
+    });
+  }
+
+  userdetail() {
+    this.navCtrl.push(UserDetailPage);
+  }
+
 
   }

@@ -10,7 +10,7 @@
                 </div>
             </ion-col>
             <ion-col padding-top col-8>
-              <h2 ion-text class="no-margin bold text-black">
+              <h2 ion-text class="no-margin bold text-black" style='font-size: 20px'>
                 {{user.name}} {{user.surname}}
               </h2>
               <span *ngIf="user.type=='teacher'" ion-text color="text-black">Insegnante</span>
@@ -20,7 +20,7 @@
   
           <ion-row no-padding class="other-data">
             <ion-col no-padding class="column">
-              <button ion-button icon-left small full color="light" menuClose (click)="logout()">
+              <button ion-button icon-left small full color="dark" menuClose (click)="logout()">
                 <ion-icon name="log-out"></ion-icon>
                 Logout
               </button>

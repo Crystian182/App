@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { StudentHasDegreeCourse } from '../../models/StudentHasDegreeCourse';
+import { GlobalProvider } from '../global/global';
+import { User } from '../../models/User';
 
 /*
   Generated class for the UserProvider provider.
@@ -12,14 +13,14 @@ import { StudentHasDegreeCourse } from '../../models/StudentHasDegreeCourse';
 @Injectable()
 export class UserProvider {
 
-  getStudentCourseUrl: string = 'http://localhost:8080/SpringApp/user/getInfoStudent';
+  saveUserUrl: string = 'http://' + this.global.address + ':8080/SpringApp/user/save';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello UserProvider Provider');
   }
 
-  getStudentCourse(id: number): Observable<StudentHasDegreeCourse>{
-    return this.http.get<StudentHasDegreeCourse>(this.getStudentCourseUrl + '/' + id);
+  save(user: User): Observable<User> {
+    return this.http.post<User>(this.saveUserUrl, user);
   }
 
 }

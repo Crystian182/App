@@ -1,0 +1,100 @@
+<!--
+  Generated template for the StudentHomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Libretto Universitario</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card class="maincard">
+  
+      <ion-card class="secondcard">
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                  <p><b>Corso:</b> {{degreeCourse?.name}} {{degreeCourse?.academicYear.year}}/{{degreeCourse?.academicYear.year+1}}</p>
+              </ion-row>
+              <ion-row>
+                  <p><b>Tipo di Corso:</b> {{degreeCourse?.typeDegreeCourse.courseType.description}}</p>
+              </ion-row>
+              <ion-row>
+                  <p><b>Durata:</b> {{degreeCourse?.typeDegreeCourse.courseType.duration }} anni</p>
+              </ion-row>
+              <ion-row>
+                  <p><b>Iscritto il:</b> {{enrollment?.date | date:'dd/MM/yyyy' }}</p>
+              </ion-row>
+              <ion-row>
+                  <p><b>Stato:</b> {{enrollment?.enrollmentStatus?.description }}</p>
+              </ion-row>
+              <ion-row>
+                  <p><b>CFU:</b> {{cfu}}/{{degreeCourse?.typeDegreeCourse.courseType.cfu }}</p>
+              </ion-row>
+              <ion-row>
+                  <p><b>Media aritmetica:</b> {{media}}</p>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="secondcard" style="padding: 0px 0px">
+            <ion-card-content>
+                <ion-list>
+  
+                    <button *ngFor="let e of exams;" ion-item style="background: transparent; padding: 0%;">
+                      <ion-row>
+                        <ion-col col-4>
+                          <ion-row>
+                            <ion-col>
+                              <ion-row>
+                                <ion-col col-2 *ngIf="e.grade != 0" style="padding-top: 50%"><ion-icon style="color:green" name="radio-button-on"></ion-icon></ion-col>
+                                <ion-col col-2 *ngIf="e.grade == 0" style="padding-top: 50%"><ion-icon style="color:red" name="radio-button-on"></ion-icon></ion-col>
+                              </ion-row>
+                            </ion-col>
+                            <ion-col>
+                                <div style="width:3px;
+                                height:50px;
+                                background:rgb(11, 96, 54);
+                                margin-top: 0;
+                                position: relative;"></div>
+                            </ion-col>
+                          </ion-row>
+                        </ion-col>
+                        <ion-col *ngIf="e.grade != 0" col-4>
+                              <ion-row>
+                                  <p style="font-size: 30px">{{e.grade}}</p>
+                              </ion-row>
+                              <ion-row>
+                                  <p style="font-size: 15px">{{e.exam.subject.cfu}} cfu</p>
+                              </ion-row>
+                          </ion-col>
+                        <ion-col *ngIf="e.grade == 0" col-4>
+                                <ion-row>
+                                    <p style="font-size: 30px">-</p>
+                                </ion-row>
+                                <ion-row>
+                                    <p style="font-size: 15px">{{e.exam.subject.cfu}} cfu</p>
+                                </ion-row>
+
+                        </ion-col>
+                        <ion-col col-4 style="padding-top: 10%">
+                            <p>{{e.exam.subject.name}}</p>
+                        </ion-col>
+                      </ion-row>
+                    </button>
+                    
+                    </ion-list>
+            </ion-card-content>
+          </ion-card>
+   
+  </ion-card>
+  </ion-content>
+  
+  

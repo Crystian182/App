@@ -1,6 +1,5 @@
-export class LessonFile {
+export class File {
     idFile: number;
 	name: String;
 	stars: number;
-	link: String;
 }

@@ -15,6 +15,7 @@ export class LessonProvider {
 
   getAllLessonsByCourseAndTermUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getAllLessonsByCourseAndTerm';
   getLessonByIdUrl: string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getById';
+  getTodayLessonsUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getTodayLessons';
 
   constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello LessonProvider Provider');
@@ -28,5 +29,8 @@ export class LessonProvider {
     return this.http.get<Lesson>(this.getLessonByIdUrl + '/' + idlesson);
   }
 
+  getTodayLessons(iduser: number): Observable<Lesson[]>{
+    return this.http.get<Lesson[]>(this.getTodayLessonsUrl + '/' + iduser);
+  }
   
 }

@@ -38,6 +38,13 @@ import { LessonPage } from '../pages/lesson/lesson';
 import { ClassProvider } from '../providers/class/class';
 import { ClassPage } from '../pages/class/class';
 
+import { StudentProvider } from '../providers/student/student';
+import { ExamProvider } from '../providers/exam/exam';
+import { FileProvider } from '../providers/file/file';
+import { Transfer } from '@ionic-native/transfer';
+import { RecordBookPage } from '../pages/record-book/record-book';
+import { UserDetailPage } from '../pages/user-detail/user-detail';
+
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
     authDomain: "uniapp-86a68.firebaseapp.com",
@@ -64,7 +71,9 @@ const firebase = {
     DetailsPage,
     RelativeTime,
     LessonPage,
-    ClassPage
+    ClassPage,
+    RecordBookPage,
+    UserDetailPage
   ],
   imports: [
     BrowserModule,
@@ -93,7 +102,9 @@ const firebase = {
     ContactsPage,
     DetailsPage,
     LessonPage,
-    ClassPage
+    ClassPage,
+    RecordBookPage,
+    UserDetailPage
   ],
   providers: [
     Push,
@@ -112,10 +123,14 @@ const firebase = {
     ChatProvider,
     EmojiProvider,
     GlobalProvider,
+    Transfer,
     //FcmProvider
     UserProvider,
     TermProvider,
-    ClassProvider
+    ClassProvider,
+    StudentProvider,
+    ExamProvider,
+    FileProvider
   ]
 })
 export class AppModule {}
