@@ -19,6 +19,7 @@ import { ToastController } from 'ionic-angular';
 import { PreviewChat } from '../models/PreviewChat';
 import { ChatChannelPage } from '../pages/chat-channel/chat-channel';
 import { CalendarPage } from '../pages/calendar/calendar';
+import { LessonPage } from '../pages/lesson/lesson';
 
 export interface MenuItem {
   title: string;
@@ -54,7 +55,8 @@ export class MyApp {
         this.appMenuItems = [
           {title: 'Home', component: StudentHomePage, icon: 'home'},
           {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
-          {title: 'Calendario Lezioni', component: CalendarPage, icon: 'calendar'}
+          {title: 'Calendario Lezioni', component: CalendarPage, icon: 'calendar'},
+          {title: 'Lezioni', component: LessonPage, icon: 'clipboard'}
         ];
       } else {
         this.appMenuItems = [

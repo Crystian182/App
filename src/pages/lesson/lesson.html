@@ -1,31 +1,117 @@
 <!--
-  Generated template for the LessonPage page.
+  Generated template for the CalendarPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Dettagli Lezione</ion-title>
+  <ion-navbar hideBackButton color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lezioni</ion-title>    
   </ion-navbar>
-
 </ion-header>
 
+<ion-content padding>
 
-<ion-content padding-sm class="animated fadeIn login auth-page">
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-       {{ lesson?.typeLesson.subject.name }}
-        </ion-card-title>
-        <p><b>Aula: </b>{{lesson?.classroom.name}}</p>
-        <p><b>Ora Inizio: </b>{{ start }}</p>
-        <p><b>Ora Fine: </b>{{ end}}</p>
-    </ion-card-content>
-    <button ion-button block color="dark" tappable (click)="showClass(lesson?.classroom.id)">Visualizza Dettagli Aula</button>
-  <button ion-button block color="dark" tappable>Visualizza Dettagli Insegnamento</button>
-  </ion-card>
+    <ion-card class="maincard">
+        <ion-card *ngIf="!valid" class="secondcard" style="padding: 0">
+            <ion-item>
+              <ion-label>Corso</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-input disabled="true" type="text" placeholder="{{degreeCourse?.name}}"></ion-input>
+              </ion-item>
+            <ion-item>
+                <ion-label>Anno Accademico</ion-label>
+              </ion-item>
+              <ion-item>
+                  <ion-input disabled="true" type="text" placeholder="{{degreeCourse?.academicYear.year}}/{{degreeCourse?.academicYear.year+1}}" name="aa"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Periodo</ion-label>
+              </ion-item>
+              <ion-item>
+                  <ion-select [(ngModel)]="selectedTerm" style="width: 100% !important; max-width: 100% !important;" placeholder="Seleziona periodo">
+                    <ion-option style="width: 100%" *ngFor="let t of degreeCourse?.academicYear.terms; let i = index" value="{{t.idterm}}">{{i + 1}} - Dal {{t.start | date:'dd/MM' }} al {{t.end | date:'dd/MM' }}</ion-option>
+                </ion-select>
+              </ion-item>
+            <ion-item>
+                <ion-label>Insegnamento</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-select [(ngModel)]="selectedSubject" style="width: 100% !important; max-width: 100% !important;" placeholder="Seleziona insegnamento">
+                  <ion-option style="width: 100%" *ngFor="let s of subjects" value="{{s.id}}">{{ s.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+              <ion-item>
+                <ion-label>Dal</ion-label>
+                </ion-item>
+                <ion-item>
+                <ion-datetime [(ngModel)]="fromDate" displayFormat="DD/MM/YYYY" placeholder="Seleziona data"></ion-datetime>
+              </ion-item>
+              <ion-item>
+                <ion-label>Al</ion-label>
+                </ion-item>
+                <ion-item>
+                <ion-datetime [(ngModel)]="toDate" displayFormat="DD/MM/YYYY" placeholder="Seleziona data"></ion-datetime>
+              </ion-item>
+            <button ion-button icon-left small full menuClose (click)="showSubjects()">
+                <ion-icon name="refresh"></ion-icon>
+                Visualizza
+              </button>
+        </ion-card>
+
+        <div *ngIf="valid">
+            
+
+              <ion-label *ngIf="lessons?.length == 0" style="text-align: center; padding-top: 50%; padding-bottom: 50%">
+                Nessun risultato
+              </ion-label>
+
+
+              <ion-card  class="secondcard" *ngFor="let l of lessons; let i=index">
+                  <ion-card *ngIf="i==0" class="secondcard">
+                      <ion-grid>
+                        <ion-row style="text-align: center">
+                              <ion-label>{{l.typeLesson.subject.name}}</ion-label>
+                        </ion-row>
+                      </ion-grid>
+                      </ion-card>
+                  
+                  <ion-card-content>
+                      <ion-item style="background-color: transparent;">
+                          <button style="background: transparent; font-size: 17px">
+                        <ion-icon name="calendar"></ion-icon> Data: {{ l.start | date:'dd/MM/yyyy' }}
+                      </button>
+                      </ion-item>
+                      <ion-item style="background-color: transparent;">
+                          <button style="background: transparent; font-size: 17px">
+                        <ion-icon name="calendar"></ion-icon> Inizio: {{ l.start | date:'HH:mm' }}
+                      </button>
+                      </ion-item>
+                      <ion-item style="background-color: transparent;">
+                          <button style="background: transparent; font-size: 17px">
+                        <ion-icon name="calendar"></ion-icon> Fine: {{ l.end | date:'HH:mm' }}
+                      </button>
+                      </ion-item>
+                      <ion-item style="background-color: transparent;">
+                        <button style="background: transparent; font-size: 17px; text-decoration: underline;" (click)="showClassroom(l.classroom)">
+                            <ion-icon name="locate"></ion-icon> Aula: {{ l.classroom.name }} - {{ l.classroom.building.name }}
+                      
+                        </button>
+                      </ion-item>
+                      <ion-item style="background-color: transparent; text-align: center">
+                          <button style="background: transparent; font-size: 20px;" (click)="showDetail(l)">
+                              <ion-icon name="information-circle"></ion-icon> Dettagli
+                          </button>
+                        </ion-item>
+                  </ion-card-content>
+                </ion-card>
+        </div>
   
+      </ion-card>
 
+  
 </ion-content>

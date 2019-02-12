@@ -48,6 +48,8 @@ import { FileProvider } from '../providers/file/file';
 import { Calendar } from '@ionic-native/calendar'
 import { SchedulerProvider } from '../providers/scheduler/scheduler';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { SubjectProvider } from '../providers/subject/subject';
+import { LessonDetailPage } from '../pages/lesson-detail/lesson-detail';
 
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
@@ -78,7 +80,9 @@ const firebase = {
     ClassPage,
     RecordBookPage,
     UserDetailPage,
-    CalendarPage
+    CalendarPage,
+    LessonPage,
+    LessonDetailPage
   ],
   imports: [
     BrowserModule,
@@ -110,7 +114,9 @@ const firebase = {
     ClassPage,
     RecordBookPage,
     UserDetailPage,
-    CalendarPage
+    CalendarPage,
+    LessonPage,
+    LessonDetailPage
   ],
   providers: [
     Push,
@@ -137,7 +143,8 @@ const firebase = {
     StudentProvider,
     FileProvider,
     ExamProvider,
-    SchedulerProvider
+    SchedulerProvider,
+    SubjectProvider
   ]
 })
 export class AppModule {}
