@@ -55,7 +55,6 @@ export class StudentHomePage {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
 
        this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
-        console.log(enrollment)
         this.degreeCourse = {
           idcourse: enrollment.degreeCourse.idcourse,
           name: enrollment.degreeCourse.name,

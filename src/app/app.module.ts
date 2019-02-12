@@ -40,10 +40,14 @@ import { ClassPage } from '../pages/class/class';
 
 import { StudentProvider } from '../providers/student/student';
 import { ExamProvider } from '../providers/exam/exam';
-import { FileProvider } from '../providers/file/file';
-import { Transfer } from '@ionic-native/transfer';
 import { RecordBookPage } from '../pages/record-book/record-book';
 import { UserDetailPage } from '../pages/user-detail/user-detail';
+
+import { CalendarPage } from '../pages/calendar/calendar';
+import { FileProvider } from '../providers/file/file';
+import { Calendar } from '@ionic-native/calendar'
+import { SchedulerProvider } from '../providers/scheduler/scheduler';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
@@ -73,7 +77,8 @@ const firebase = {
     LessonPage,
     ClassPage,
     RecordBookPage,
-    UserDetailPage
+    UserDetailPage,
+    CalendarPage
   ],
   imports: [
     BrowserModule,
@@ -104,11 +109,14 @@ const firebase = {
     LessonPage,
     ClassPage,
     RecordBookPage,
-    UserDetailPage
+    UserDetailPage,
+    CalendarPage
   ],
   providers: [
     Push,
     Firebase,
+    Calendar,
+    LaunchNavigator,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -123,14 +131,13 @@ const firebase = {
     ChatProvider,
     EmojiProvider,
     GlobalProvider,
-    Transfer,
-    //FcmProvider
     UserProvider,
     TermProvider,
     ClassProvider,
     StudentProvider,
+    FileProvider,
     ExamProvider,
-    FileProvider
+    SchedulerProvider
   ]
 })
 export class AppModule {}

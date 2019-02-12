@@ -34,7 +34,6 @@ export class UserDetailPage {
     this.userProvider.save(this.user).subscribe(user => {
       
       user.token = this.user.token
-      console.log(user)
       window.localStorage['currentUser'] = JSON.stringify(user);
       let alert = this.alertCtrl.create({
         title: 'Conferma',
