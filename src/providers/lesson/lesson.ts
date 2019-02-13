@@ -52,6 +52,9 @@ export class LessonProvider {
   }
 
   saveFeedFile(idfile: number, idlesson: number, feed: Feedback): Observable<String>{
+    if(idlesson == undefined) {
+      idlesson=0
+    }
     return this.http.post<String>(this.saveFeedbackFileUrl + '/idfile=' + idfile + '&idlesson=' + idlesson, feed);
   }
 

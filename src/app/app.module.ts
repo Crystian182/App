@@ -54,6 +54,10 @@ import { StarRatingModule } from 'ionic3-star-rating';
 import { FileDetailPage } from '../pages/file-detail/file-detail';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';  
 import { File as Fil } from '@ionic-native/file';  
+import { ExamPage } from '../pages/exam/exam';
+import { BachecaEsamiPage } from '../pages/bacheca-esami/bacheca-esami';
+import { CoursesPage } from '../pages/courses/courses';
+import { CourseDetailPage } from '../pages/course-detail/course-detail';
 
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
@@ -87,7 +91,11 @@ const firebase = {
     CalendarPage,
     LessonPage,
     LessonDetailPage,
-    FileDetailPage
+    FileDetailPage,
+    ExamPage,
+    BachecaEsamiPage,
+    CoursesPage,
+    CourseDetailPage
   ],
   imports: [
     BrowserModule,
@@ -123,7 +131,11 @@ const firebase = {
     CalendarPage,
     LessonPage,
     LessonDetailPage,
-    FileDetailPage
+    FileDetailPage,
+    ExamPage,
+    BachecaEsamiPage,
+    CoursesPage,
+    CourseDetailPage
   ],
   providers: [
     Push,

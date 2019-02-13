@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Corsi</ion-title>    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content style="background-color: rgb(226, 231, 236)">
+        
+        <ion-card class="secondcard" *ngFor="let s of subjects;">
+          <ion-card-content>
+  
+            <button ion-item style="background: transparent; padding: 0%;" (click)="showSubject(s)">
+                <ion-row>
+                  <ion-col col-9>
+                    <ion-row>
+
+                    </ion-row>
+                    <ion-row>
+                        <p style="font-size: 30px"><ion-icon name="desktop"></ion-icon> {{ s.name }}</p>
+                    </ion-row>
+                  </ion-col>
+                  <ion-col col-3>
+                      <p style="font-size: 15px"> {{ s.cfu }} cfu</p>
+                    </ion-col>
+                    
+                </ion-row>
+              
+            
+            <ion-row>
+                <p style="font-size: 20px">Prof. {{ s.teacherDTO.name }} {{ s.teacherDTO.surname }}</p>
+            </ion-row>
+          </button>
+        </ion-card-content>
+      </ion-card>
+  
+    
+  </ion-content>

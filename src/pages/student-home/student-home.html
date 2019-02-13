@@ -13,14 +13,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="maincard">
+<ion-content style="background-color: rgb(226, 231, 236)">
     <ion-card class="secondcard">
+      <ion-card-header>
+              <h1><b>Dati Studente</b></h1>
+      </ion-card-header>
       <ion-card-content>
         <ion-grid>
-            <ion-row>
-                <h1><b>Dati Studente</b></h1>
-            </ion-row>
           <ion-row>
             <ion-col col-5>
               <div class="user-avatar">
@@ -64,11 +63,11 @@
     </ion-card>
 
     <ion-card class="secondcard">
+      <ion-card-header>
+              <h1><b>Carriera</b></h1>
+      </ion-card-header>
         <ion-card-content>
           <ion-grid>
-            <ion-row>
-                <h1><b>Carriera</b></h1>
-            </ion-row>
             <ion-row>
                 <p><b>Corso:</b> {{degreeCourse?.name}} {{degreeCourse?.academicYear.year}}/{{degreeCourse?.academicYear.year+1}}</p>
             </ion-row>
@@ -95,11 +94,12 @@
       </ion-card>
 
       <ion-card class="secondcard">
+        <ion-card-header>
+                <h1><b>Le Lezioni di Oggi</b></h1>
+        </ion-card-header>
           <ion-card-content>
             <ion-grid>
-              <ion-row>
-                  <h1><b>Le lezioni di Oggi</b></h1>
-              </ion-row>
+              
               <ion-list *ngIf="todayLessons">
   
                   <button *ngFor="let lesson of todayLessons" ion-item style="background: transparent; padding: 0%;">
@@ -131,23 +131,25 @@
                   
                   </ion-list>
                   <ion-list *ngIf="todayLessons?.length == 0">
-                  Nessuna lezione oggi! Riposo! =)
+                  Nessuna lezione oggi!
                   </ion-list>
             </ion-grid>
           </ion-card-content>
         </ion-card>
 
         <ion-card class="secondcard">
+          <ion-card-header>
+                  <h1><b>Uploads</b></h1>
+          </ion-card-header>
             <ion-card-content>
               <ion-grid>
-                <ion-row>
-                    <h1><b>Uploads</b></h1>
-                </ion-row>
+                
                 <ion-list *ngIf="lessonFiles">
-                    <ion-row *ngFor="let f of lessonFiles">
-                        
-                        <p><button clear (click)="download(f.file.idFile)"><ion-icon name="download"></ion-icon></button> {{f.file.name}} ({{f.lesson.typeLesson.subject.name}}) </p>
-                    </ion-row>
+                    <ion-row *ngFor="let f of lessonFiles; let i=index" style="padding-bottom: 5px">
+                        <div *ngIf="i<4">
+                        <ion-icon (click)="download(f.file.idFile)" name="download"></ion-icon> &nbsp;{{f.file.name}} ({{f.lesson.typeLesson.subject.name}})
+                      </div>
+                      </ion-row>
                 </ion-list>
                 <ion-list *ngIf="lessonFiles?.length == 0">
                     Nessuna file recente.
@@ -156,7 +158,5 @@
             </ion-card-content>
           </ion-card>
 
- 
-</ion-card>
 </ion-content>
 

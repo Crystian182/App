@@ -13,9 +13,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-    <ion-card class="maincard">
+<ion-content style="background-color: rgb(226, 231, 236)">
       <ion-card  class="secondcard">
           
           <ion-card-content>
@@ -54,23 +52,17 @@
                   </ion-row>
             </ion-card-content>
   
-            <ion-item style="background-color: transparent;">
+            <ion-item *ngIf="files.length != 0" style="background-color: transparent;">
+              <button style="background-color: transparent; color: #222222" *ngFor="let f of files" ion-button icon-left small full>
+                    <p (click)="showFile(f)"><ion-icon name="download"></ion-icon>{{trunk(f.name)}}</p>
+                </button>
+           </ion-item>
 
-            
-                  <button style="background-color: transparent; color: #222222" *ngFor="let f of files" ion-button icon-left small full>
-                    
-                        
-                            <p (click)="showFile(f)"><ion-icon name="download"></ion-icon>{{f.name}}</p>
-                        
-                            
-                      </button>
-                    </ion-item>
-              </ion-card>
+           <ion-item *ngIf="files.length == 0" style="background-color: transparent;">
+              <p>Nessun file presente.</p>
+           </ion-item>
+         </ion-card>
 
-              
-
-
-  
       <ion-card  class="secondcard">
           <ion-card-content style="padding-bottom: 0px">
                 <ion-row>
@@ -125,5 +117,4 @@
                 </ion-card-content>
             </ion-card>
 
-    </ion-card>
 </ion-content>

@@ -1,0 +1,95 @@
+<!--
+  Generated template for the CalendarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Bacheca prenotazioni</ion-title>    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content style="background-color: rgb(226, 231, 236)">
+  
+        <ion-card class="secondcard" >
+            
+          </ion-card>
+
+          <ion-card class="secondcard" *ngIf="enrollments?.length == 0">
+              <ion-card-header>
+                Nessuna iscrizione
+              </ion-card-header>
+              </ion-card>
+        
+        <ion-card class="secondcard" *ngFor="let e of enrollments;">
+          <ion-card-header *ngIf="enrollments?.length == 0">
+            Nessuna iscrizione
+          </ion-card-header>
+          <ion-card-content>
+          <ion-list>
+  
+                  <ion-row>
+                      <ion-col col-2>
+                        <ion-row>
+                          <ion-col>
+                            <ion-row>
+                              <ion-col col-2 *ngIf="e.grade != 0" style="padding-top: 200%; padding-left: 0px"><ion-icon style="color:green" name="radio-button-on"></ion-icon></ion-col>
+                              <ion-col col-2 *ngIf="e.grade == 0 && e.exam.status.idstatus==1" style="padding-top: 200%; padding-left: 0px"><ion-icon style="color:yellow" name="radio-button-on"></ion-icon></ion-col>
+                              <ion-col col-2 *ngIf="e.grade == 0 && e.exam.status.idstatus!=1" style="padding-top: 200%; padding-left: 0px"><ion-icon style="color:red" name="radio-button-on"></ion-icon></ion-col>
+                            </ion-row>
+                          </ion-col>
+                        </ion-row>
+                      </ion-col>
+                      <ion-col col-10>
+                      <ion-row>
+                      <ion-col *ngIf="e.grade != 0" col-4>
+                            <ion-row>
+                                <p style="font-size: 30px">{{e.grade}}</p>
+                            </ion-row>
+                            <ion-row>
+                                <p style="font-size: 15px">{{e.exam.subject.cfu}} cfu</p>
+                            </ion-row>
+                        </ion-col>
+                      <ion-col *ngIf="e.grade == 0" col-4>
+                              <ion-row>
+                                  <p style="font-size: 30px">-</p>
+                              </ion-row>
+                              <ion-row>
+                                  <p style="font-size: 15px">{{e.exam.subject.cfu}} cfu</p>
+                              </ion-row>
+
+                      </ion-col>
+                      <ion-col col-8>
+                        <ion-row>
+                            <p style="font-size: 30px">{{e.exam.subject.name}}</p>
+                        </ion-row>
+                        <ion-row>
+                            <p style="font-size: 15px">{{e.exam.examtype.description}}</p>
+                        </ion-row>
+                          
+                      </ion-col>
+                      </ion-row>
+                      <ion-row>
+                          <ion-row>
+                              <p>Data: {{e.exam.date | date:'dd/MM/yyyy HH:mm' }}</p>
+                          </ion-row>
+                          <ion-row>
+                              <p style="font-size: 15px">Aula {{e.exam.classroom.name}} - {{e.exam.classroom.building.name}}</p>
+                          </ion-row>
+                          
+                      </ion-row>
+                      </ion-col>
+                    </ion-row>
+                  
+          
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+  
+  
+    
+  </ion-content>

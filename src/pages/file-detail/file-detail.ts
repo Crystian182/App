@@ -6,6 +6,7 @@ import { LessonProvider } from '../../providers/lesson/lesson';
 import { User } from '../../models/User';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File as Fil } from '@ionic-native/file';  
+import { GlobalProvider } from '../../providers/global/global';
 
 /**
  * Generated class for the FileDetailPage page.
@@ -28,10 +29,11 @@ export class FileDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl : ModalController, public events: Events,
   public lessonProvider: LessonProvider, private transfer: FileTransfer,
-public fil: Fil) {
+public fil: Fil, public global: GlobalProvider) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.file = this.navParams.get('file');
     this.idlesson = this.navParams.get('idlesson');
+    console.log(this.file)
     this.lessonProvider.getFeedbackFile(this.file.idFile).subscribe(feedbacks => {
       this.feedbacks = feedbacks
       console.log(this.feedbacks)
@@ -58,14 +60,20 @@ public fil: Fil) {
     this.events.subscribe('feedfile:added', (feed) => {
       this.feedbacks.push(feed)
       this.posted = true;
-      let starz: number = (Number(this.file.stars) + feed.stars)/2
-      this.file.stars = starz;
+      if(this.feedbacks.length == 0) {
+        let starz: number = (Number(this.file.stars) + feed.stars)
+        this.file.stars = starz;
+      } else {
+        let starz: number = (Number(this.file.stars) + feed.stars)/2
+        this.file.stars = starz;
+      }
+      
     });
   }
 
   download() {
     const fileTransfer: FileTransferObject = this.transfer.create();
-    const url = 'http://192.168.1.6:8080/SpringApp/file/download/filelesson/' + this.file.idFile;
+    const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + this.file.idFile;
       fileTransfer.download(url, this.fil.externalDataDirectory + this.file.name).then((entry) => {
         console.log('download complete: ' + entry.toURL());
       }, (error) => {

@@ -13,22 +13,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content style="background-color: rgb(226, 231, 236)">
 
-    <ion-card class="maincard">
         <ion-card *ngIf="!valid" class="secondcard" style="padding: 0">
-            <ion-item>
-              <ion-label>Corso</ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-input disabled="true" type="text" placeholder="{{degreeCourse?.name}}"></ion-input>
-              </ion-item>
-            <ion-item>
-                <ion-label>Anno Accademico</ion-label>
-              </ion-item>
-              <ion-item>
-                  <ion-input disabled="true" type="text" placeholder="{{degreeCourse?.academicYear.year}}/{{degreeCourse?.academicYear.year+1}}" name="aa"></ion-input>
-                </ion-item>
                 <ion-item>
                   <ion-label>Periodo</ion-label>
               </ion-item>
@@ -70,15 +57,16 @@
                 Nessun risultato
               </ion-label>
 
+              <ion-card *ngIf="lessons.length != 0" class="secondcard">
+                  <ion-grid>
+                    <ion-row style="text-align: center">
+                          <ion-label><p style="font-size: 30px">{{lessons[0].typeLesson.subject.name}}</p></ion-label>
+                    </ion-row>
+                  </ion-grid>
+                  </ion-card>
 
-              <ion-card  class="secondcard" *ngFor="let l of lessons; let i=index">
-                  <ion-card *ngIf="i==0" class="secondcard">
-                      <ion-grid>
-                        <ion-row style="text-align: center">
-                              <ion-label>{{l.typeLesson.subject.name}}</ion-label>
-                        </ion-row>
-                      </ion-grid>
-                      </ion-card>
+              <ion-card  class="secondcard" *ngFor="let l of lessons">
+                  
                   
                   <ion-card-content>
                       <ion-item style="background-color: transparent;">
@@ -109,9 +97,5 @@
                         </ion-item>
                   </ion-card-content>
                 </ion-card>
-        </div>
-  
-      </ion-card>
-
-  
+        </div>  
 </ion-content>

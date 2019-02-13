@@ -118,7 +118,17 @@ export class LessonPage {
       this.lessonProvider.searchLessons(this.degreeCourse.idcourse, this.selectedTerm, this.selectedSubject, this.datePipe.transform(this.fromDate, 'dd-MM-yyyy'), this.datePipe.transform(this.toDate, 'dd-MM-yyyy')).subscribe(lessons => {
 
         this.lessons = lessons
-        this.valid = true;
+        if(this.lessons.length > 0) {
+          this.valid = true;
+        } else {
+          let alert = this.alertCtrl.create({
+            title: 'Nessun risultato',
+            subTitle: 'Ripetere la ricerca.',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        
       })
       
     }

@@ -21,6 +21,9 @@ import { FileProvider } from '../../providers/file/file';
 import { FileLesson } from '../../models/FileLesson';
 import { RecordBookPage } from '../record-book/record-book';
 import { UserDetailPage } from '../user-detail/user-detail';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File as Fil } from '@ionic-native/file';  
+import { GlobalProvider } from '../../providers/global/global';
 /**
  * Generated class for the StudentHomePage page.
  *
@@ -51,7 +54,10 @@ export class StudentHomePage {
     public studentProvider: StudentProvider,
     public examProvider: ExamProvider,
     public fileProvider: FileProvider,
-    public _DomSanitizer: DomSanitizer) {
+    public _DomSanitizer: DomSanitizer,
+    private transfer: FileTransfer,
+    public fil: Fil,
+    public global: GlobalProvider) {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
 
        this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
@@ -119,10 +125,6 @@ export class StudentHomePage {
     return ("000000" + n).slice(-6);
   }
 
-  download(idFile) {
-    console.log('downnnn')
-  }
-
   recordbook() {
     this.navCtrl.push(RecordBookPage, {
       exams: this.exams,
@@ -135,6 +137,16 @@ export class StudentHomePage {
 
   userdetail() {
     this.navCtrl.push(UserDetailPage);
+  }
+
+  download(file) {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + file.idFile;
+      fileTransfer.download(url, this.fil.externalDataDirectory + file.name).then((entry) => {
+        console.log('download complete: ' + entry.toURL());
+      }, (error) => {
+        console.log(error)
+      });
   }
 
 

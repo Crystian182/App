@@ -25,8 +25,8 @@ export class LessonDetailPage {
   user: User;
   lesson: Lesson;
   feedbacks: Feedback[] = [];
-  files: File[];
-  stars: String;
+  files: File[] = [];
+  stars: String = '-';
   posted: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -43,7 +43,10 @@ export class LessonDetailPage {
         starz = starz + f.stars
         i++
       }
-      this.stars = (starz/i).toFixed(1);
+      if(starz != 0) {
+        this.stars = (starz/i).toFixed(1);
+      }
+      
       console.log(this.feedbacks)
     })
     this.fileProvider.getLessonFiles(this.lesson.idlesson).subscribe(files => {
@@ -59,6 +62,9 @@ export class LessonDetailPage {
   canPostFeedbackLesson() {
     let index = this.feedbacks.findIndex(item => item.user.iduser == this.user.iduser);
       if(index == -1) {
+        if(this.lesson.start >= new Date()) {
+          return false;
+        }
         return true;
       } else {
         return false;
@@ -72,8 +78,14 @@ export class LessonDetailPage {
     this.events.subscribe('feedlesson:added', (feed) => {
       this.feedbacks.push(feed)
       this.posted = true;
-      let starz: number = (Number(this.stars) + feed.stars)/2
-      this.stars = (starz).toFixed(1);
+      if(this.feedbacks.length == 0) {
+        let starz: number = (Number(this.stars) + feed.stars)
+        this.stars = (starz).toFixed(1);
+      } else {
+        let starz: number = (Number(this.stars) + feed.stars)/2
+        this.stars = (starz).toFixed(1);
+      }
+      
     });
   }
 
@@ -83,5 +95,12 @@ export class LessonDetailPage {
   file: file,
 idlesson: this.lesson.idlesson})
   }
+
+  trunk(filename) {
+    let label: String = filename
+    return label.substring(0, 20) + '...'
+  }
+
+
 
 }

@@ -13,16 +13,14 @@
     </ion-navbar>
   </ion-header>
   
-  <ion-content padding>
-  
-      <ion-card class="maincard">
+  <ion-content style="background-color: rgb(226, 231, 236)">
         <ion-card  class="secondcard">
             
             <ion-card-content>
                 <ion-card-header>
                   <ion-row>
                     <ion-col col-2 style="text-align: center; padding-top: 7%">
-                        <button (click)="download()"><ion-icon  name="download"></ion-icon></button>
+                        <ion-icon (click)="download()" name="download"></ion-icon>
                     </ion-col>
                     <ion-col col-10>
                         <ionic3-star-rating 
@@ -36,12 +34,17 @@
                       </ion-col>
                     </ion-row>
                     <ion-row>
-                      {{file.name}}
+                      <p (click)="download()">{{file.name}}</p>
                     </ion-row>
                     </ion-card-header>
+
+                    <div *ngIf="feedbacks.length == 0">
+                        Nessuna recensione.
+                      </div>
                       
             </ion-card-content>
          
+            
 
           <ion-card class="secondcard" *ngFor="let f of feedbacks">
               <ion-card-content>
@@ -71,6 +74,5 @@
                   </button>
               </ion-row>
       </ion-card>
-    </ion-card>
   </ion-content>
   

@@ -1,0 +1,73 @@
+<!--
+  Generated template for the CalendarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar hideBackButton color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Esami</ion-title>    
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: rgb(226, 231, 236)">
+
+      <ion-card class="secondcard" >
+        <ion-card-header>
+            <h1>Esami prenotabili</h1>
+        </ion-card-header>
+        <ion-card-content *ngIf="availableExams?.length == 0">
+            Nessun esame prenotabile
+        </ion-card-content>
+          
+        </ion-card>
+      
+      <ion-card class="secondcard" *ngIf="availableExams?.length != 0">
+        <ion-card-content>
+        <ion-list>
+  
+        <button *ngFor="let e of availableExams" ion-item style="background: transparent; padding: 0%;" (click)="bookExam(e)">
+          <ion-row>
+            <ion-col col-4>
+              <ion-row>
+                <ion-col>
+                  <ion-row>
+                    <ion-col col-2 style="padding-top: 140%"><ion-icon style="color:yellow" name="radio-button-on"></ion-icon></ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col>
+                    <div style="width:3px;
+                    height:100px;
+                    background:rgb(11, 96, 54);
+                    margin-top: 0;
+                    position: relative;"></div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-7>
+                  <ion-row>
+                      <p style="font-size: 30px">{{e.subject.name}}</p>
+                  </ion-row>
+                  <ion-row>
+                      <p style="font-size: 15px">{{e.subject.cfu}} cfu &#8901; {{e.examtype.description}}</p>
+                  </ion-row>
+                  <ion-row>
+                      <p style="font-size: 15px">{{e.date | date:'dd/MM/yyyy HH:mm' }}</p>
+                  </ion-row>
+                  <ion-row>
+                      <p style="font-size: 15px">Aula {{e.classroom.name}} - {{e.classroom.building.name}}</p>
+                  </ion-row>
+              </ion-col>
+            <ion-col col-1 style="padding-top: 10%">
+                <p></p>
+            </ion-col>
+          </ion-row>
+        </button>
+        
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -20,6 +20,10 @@ import { PreviewChat } from '../models/PreviewChat';
 import { ChatChannelPage } from '../pages/chat-channel/chat-channel';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { LessonPage } from '../pages/lesson/lesson';
+import { ExamPage } from '../pages/exam/exam';
+import { BachecaEsamiPage } from '../pages/bacheca-esami/bacheca-esami';
+import { RecordBookPage } from '../pages/record-book/record-book';
+import { CoursesPage } from '../pages/courses/courses';
 
 export interface MenuItem {
   title: string;
@@ -56,7 +60,10 @@ export class MyApp {
           {title: 'Home', component: StudentHomePage, icon: 'home'},
           {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
           {title: 'Calendario Lezioni', component: CalendarPage, icon: 'calendar'},
-          {title: 'Lezioni', component: LessonPage, icon: 'clipboard'}
+          {title: 'Lezioni', component: LessonPage, icon: 'clipboard'},
+          {title: 'Esami', component: ExamPage, icon: 'folder'},
+          {title: 'Bacheca prenotazioni', component: BachecaEsamiPage, icon: 'search'},
+          {title: 'Corsi', component: CoursesPage, icon: 'book'}
         ];
       } else {
         this.appMenuItems = [
