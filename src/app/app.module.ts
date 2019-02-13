@@ -50,6 +50,10 @@ import { SchedulerProvider } from '../providers/scheduler/scheduler';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { SubjectProvider } from '../providers/subject/subject';
 import { LessonDetailPage } from '../pages/lesson-detail/lesson-detail';
+import { StarRatingModule } from 'ionic3-star-rating';
+import { FileDetailPage } from '../pages/file-detail/file-detail';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';  
+import { File as Fil } from '@ionic-native/file';  
 
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
@@ -82,7 +86,8 @@ const firebase = {
     UserDetailPage,
     CalendarPage,
     LessonPage,
-    LessonDetailPage
+    LessonDetailPage,
+    FileDetailPage
   ],
   imports: [
     BrowserModule,
@@ -94,6 +99,7 @@ const firebase = {
     AngularFireModule.initializeApp(firebase), 
     AngularFirestoreModule,
     AngularFireDatabaseModule,
+    StarRatingModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
@@ -116,13 +122,17 @@ const firebase = {
     UserDetailPage,
     CalendarPage,
     LessonPage,
-    LessonDetailPage
+    LessonDetailPage,
+    FileDetailPage
   ],
   providers: [
     Push,
     Firebase,
     Calendar,
     LaunchNavigator,
+    FileTransfer,  
+    FileTransferObject,
+    Fil,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

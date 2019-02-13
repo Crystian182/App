@@ -101,6 +101,6 @@
         <variable name="GOOGLE_API_KEY_FOR_ANDROID" value="AIzaSyDeqBKjtOUNXR_H33V1oWKYSWWjsGA3J-E" />
         <variable name="OKHTTP_VERSION" value="3.12.0" />
     </plugin>
-    <engine name="android" spec="7.1.4" />
     <plugin name="cordova-plugin-datepicker" spec="0.9.3" />
+    <engine name="android" spec="7.1.4" />
 </widget>

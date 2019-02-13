@@ -1,18 +1,129 @@
 <!--
-  Generated template for the LessonDetailPage page.
+  Generated template for the CalendarPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>LessonDetail</ion-title>
+  <ion-navbar hideBackButton color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Dettaglio Lezione</ion-title>    
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
 
+    <ion-card class="maincard">
+      <ion-card  class="secondcard">
+          
+          <ion-card-content>
+              <ion-card-header>
+                    <h1>{{lesson.typeLesson.subject.name}}</h1>
+              </ion-card-header>
+
+              <ion-item style="background-color: transparent;">
+                  <button style="background: transparent; font-size: 17px">
+                <ion-icon name="calendar"></ion-icon> Data: {{ lesson.start | date:'dd/MM/yyyy' }}
+              </button>
+              </ion-item>
+              <ion-item style="background-color: transparent;">
+                  <button style="background: transparent; font-size: 17px">
+                <ion-icon name="calendar"></ion-icon> Inizio: {{ lesson.start | date:'HH:mm' }}
+              </button>
+              </ion-item>
+              <ion-item style="background-color: transparent;">
+                  <button style="background: transparent; font-size: 17px">
+                <ion-icon name="calendar"></ion-icon> Fine: {{ lesson.end | date:'HH:mm' }}
+              </button>
+              </ion-item>
+              <ion-item style="background-color: transparent;">
+                <button style="background: transparent; font-size: 17px; text-decoration: underline;" (click)="showClassroom(l.classroom)">
+                    <ion-icon name="locate"></ion-icon> Aula: {{ lesson.classroom.name }} - {{ lesson.classroom.building.name }}
+              
+                </button>
+              </ion-item>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card  class="secondcard">
+            <ion-card-content style="padding-bottom: 0px">
+                  <ion-row>
+                    <h1>File</h1>
+                  </ion-row>
+            </ion-card-content>
+  
+            <ion-item style="background-color: transparent;">
+
+            
+                  <button style="background-color: transparent; color: #222222" *ngFor="let f of files" ion-button icon-left small full>
+                    
+                        
+                            <p (click)="showFile(f)"><ion-icon name="download"></ion-icon>{{f.name}}</p>
+                        
+                            
+                      </button>
+                    </ion-item>
+              </ion-card>
+
+              
+
+
+  
+      <ion-card  class="secondcard">
+          <ion-card-content style="padding-bottom: 0px">
+                <ion-row>
+                  <h1>Commenti</h1>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-2 style="font-size: 18px; padding-top: 5%; text-align: center">
+                      {{stars}}
+                  </ion-col>
+                  <ion-col col-10>
+                    <ionic3-star-rating 
+                      activeIcon = "ios-star"
+                      defaultIcon = "ios-star-outline"
+                      activeColor = "#bec41b" 
+                      defaultColor = "#222222"
+                      readonly="true"
+                      [rating]="stars">
+                    </ionic3-star-rating>
+                  </ion-col>
+                </ion-row>
+          </ion-card-content>
+
+          <ion-card class="secondcard" *ngFor="let f of feedbacks">
+            <ion-card-content>
+                <ion-row style="font-size: 10px;">
+                    {{f.date | date:'dd/MM/yyyy HH:mm' }} &#8901; Anonimo
+                  </ion-row>
+              <ion-row>
+                    <ionic3-star-rating 
+                      activeIcon = "ios-star"
+                      defaultIcon = "ios-star-outline"
+                      activeColor = "#bec41b" 
+                      defaultColor = "#222222"
+                      readonly="true"
+                      [rating]="f.stars">
+                    </ionic3-star-rating>
+                </ion-row>
+              
+                <ion-row>
+                   {{f.description}}
+                </ion-row>
+              </ion-card-content>
+          </ion-card>
+              <ion-card-content>
+                  
+                <ion-row *ngIf="canPostFeedbackLesson() && !posted">
+                    <button ion-button icon-left full (click)="addFeed()" style="background: transparent; color: #222222; border-radius: 12px">
+                        <ion-icon name="add-circle" style="color: green"></ion-icon>
+                        Aggiungi
+                      </button>
+                  </ion-row>
+                </ion-card-content>
+            </ion-card>
+
+    </ion-card>
 </ion-content>

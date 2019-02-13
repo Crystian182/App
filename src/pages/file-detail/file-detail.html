@@ -1,0 +1,76 @@
+<!--
+  Generated template for the FileDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Dettaglio File</ion-title>    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+      <ion-card class="maincard">
+        <ion-card  class="secondcard">
+            
+            <ion-card-content>
+                <ion-card-header>
+                  <ion-row>
+                    <ion-col col-2 style="text-align: center; padding-top: 7%">
+                        <button (click)="download()"><ion-icon  name="download"></ion-icon></button>
+                    </ion-col>
+                    <ion-col col-10>
+                        <ionic3-star-rating 
+                        activeIcon = "ios-star"
+                        defaultIcon = "ios-star-outline"
+                        activeColor = "#bec41b" 
+                        defaultColor = "#222222"
+                        readonly="true"
+                        [rating]="file.stars">
+                      </ionic3-star-rating>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      {{file.name}}
+                    </ion-row>
+                    </ion-card-header>
+                      
+            </ion-card-content>
+         
+
+          <ion-card class="secondcard" *ngFor="let f of feedbacks">
+              <ion-card-content>
+                  <ion-row style="font-size: 10px;">
+                      {{f.date | date:'dd/MM/yyyy HH:mm' }} &#8901; Anonimo
+                    </ion-row>
+                <ion-row>
+                      <ionic3-star-rating 
+                        activeIcon = "ios-star"
+                        defaultIcon = "ios-star-outline"
+                        activeColor = "#bec41b" 
+                        defaultColor = "#222222"
+                        readonly="true"
+                        [rating]="f.stars">
+                      </ionic3-star-rating>
+                  </ion-row>
+                
+                  <ion-row>
+                     {{f.description}}
+                  </ion-row>
+                </ion-card-content>
+            </ion-card>
+            <ion-row *ngIf="canPostFeedbackFile() && !posted">
+                <button ion-button icon-left full (click)="addFeed()" style="background: transparent; color: #222222; border-radius: 12px">
+                    <ion-icon name="add-circle" style="color: green"></ion-icon>
+                    Aggiungi
+                  </button>
+              </ion-row>
+      </ion-card>
+    </ion-card>
+  </ion-content>
+  

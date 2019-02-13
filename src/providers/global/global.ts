@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GlobalProvider {
 
-  public address = "192.168.1.7";
+  public address = "192.168.1.6";
 
   constructor(public http: HttpClient) {
     console.log('Hello GlobalProvider Provider');
