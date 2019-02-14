@@ -102,7 +102,7 @@
               
               <ion-list *ngIf="todayLessons">
   
-                  <button *ngFor="let lesson of todayLessons" ion-item style="background: transparent; padding: 0%;">
+                  <button *ngFor="let lesson of todayLessons" ion-item style="background: transparent; padding: 0%;" (click)="showLesson(lesson)">
                     <ion-row>
                       <ion-col col-5>
                         <ion-row>

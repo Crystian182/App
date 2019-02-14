@@ -1,0 +1,94 @@
+<!--
+  Generated template for the BuildingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Dettaglio Aula</ion-title>    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content style="background-color: rgb(226, 231, 236)">
+        
+        <ion-card style="padding-top: 0px;">
+          <ion-card-header>
+              <ion-row>
+                  <p style="font-size: 22px"><ion-icon name="school"></ion-icon>&nbsp;Aula {{ classroom.name }} - Edificio {{building.name}}</p>
+                </ion-row>
+              <ion-row>
+                  <p style="font-size: 18px">{{ classroom.address }}</p>
+                </ion-row>
+                <ion-row>
+                    <p style="font-size: 18px"><ion-icon name="tablet-portrait"></ion-icon>&nbsp;{{ classroom.seats }} posti</p>
+                  </ion-row>
+                <ion-row>
+                    <p style="font-size: 18px">Trovala sulla mappa!</p>
+                  </ion-row>
+          </ion-card-header>
+            <ion-card-content>
+              <ion-card>
+              <ion-card-header>Strumenti didattica</ion-card-header>
+            <ion-card-content>
+              <ion-card *ngFor="let t of classroom.tool">
+                <ion-card-content>
+                        <ion-row>
+                            <p style="font-size: 15px"><ion-icon name="hammer"></ion-icon>&nbsp;{{t.quantity}}x {{t.name}}</p>
+                            </ion-row>
+                </ion-card-content>
+                  
+              </ion-card>
+              </ion-card-content>
+            </ion-card>
+            <ion-card *ngIf="user.type=='teacher'">
+                <ion-card-header>Segnalazioni</ion-card-header>
+              <ion-card-content>
+                <ion-card *ngFor="let t of tickets">
+                  <ion-card-content>
+                      <button ion-item style="background: transparent; padding: 0%;" (click)="showTicket(t)">
+                          <ion-row >
+                            <ion-col col-4 >
+                              <ion-row >
+                              <ion-col >
+                              <ion-row >
+                                  <p style="font-size: 25px">{{t.classroom.name }}</p>
+                              </ion-row>
+                              <ion-row style="text-align: center">
+                                <p style="font-size: 15px">{{t.classroom.building.name }}</p>
+                              </ion-row>
+                            </ion-col>
+                              <ion-col>
+                                  <div style="width:3px;
+                                  height:50px;
+                                  background:rgb(11, 96, 54);
+                                  margin-top: 0;
+                                  position: relative;"></div>
+                              </ion-col>
+                            </ion-row>
+                            </ion-col>
+                            <ion-col col-8 style="padding-top:7%">
+                              <ion-row>
+                                  <p style="font-size: 20px">{{trunk(t.title)}}</p>
+                              </ion-row>
+                                <ion-row>
+                                    <p style="font-size: 10px">Ultimo aggiornamento {{ t.ticketmessages[t.ticketmessages.length-1].date | date:'dd/MM/yyyy HH:mm' }}</p>
+                                </ion-row>
+                            </ion-col>
+                          </ion-row>
+                        </button>
+                  </ion-card-content>
+                    
+                </ion-card>
+                </ion-card-content>
+              </ion-card>
+        </ion-card-content>
+        
+      </ion-card>
+  
+    
+  </ion-content>
+

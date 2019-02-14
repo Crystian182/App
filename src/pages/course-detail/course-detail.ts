@@ -43,6 +43,9 @@ export class CourseDetailPage {
   }
 
   trunk(filename) {
+    if(filename[19] == undefined) {
+      return filename
+    }
     let label: String = filename
     return label.substring(0, 20) + '...'
   }

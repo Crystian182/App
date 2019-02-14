@@ -1,0 +1,54 @@
+<!--
+  Generated template for the BuildingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Edificio</ion-title>    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content style="background-color: rgb(226, 231, 236)">
+        
+        <ion-card style="padding-top: 0px;">
+            <img [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + building.pic)" onError="this.src='./assets/to-user.jpg';"/>
+          <ion-card-header>
+              <ion-row>
+                  <p style="font-size: 22px">Edificio {{ building.name }}</p>
+                </ion-row>
+              <ion-row>
+                  <p style="font-size: 18px">{{ building.address }}</p>
+                </ion-row>
+                <ion-row>
+                    <p style="font-size: 18px">Trovalo sulla mappa!</p>
+                  </ion-row>
+          </ion-card-header>
+            <ion-card-content>
+              <ion-card *ngFor="let c of building.classrooms">
+                <ion-card-content>
+                    <button ion-item style="background: transparent; padding: 0%;"  (click)="showClass(c)">
+                        <ion-row>
+                            <p style="font-size: 25px"><ion-icon name="school"></ion-icon>&nbsp;Aula {{c.name}}</p>
+                            </ion-row>
+                            <ion-row>
+                                <p style="font-size: 15px"><ion-icon name="tablet-portrait"></ion-icon>&nbsp;{{c.seats}} posti</p>
+                          
+                            </ion-row>
+                        </button>
+                </ion-card-content>
+                  
+              </ion-card>
+              
+        </ion-card-content>
+      </ion-card>
+  
+    
+  </ion-content>
+
+
+

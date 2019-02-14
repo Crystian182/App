@@ -24,6 +24,9 @@ import { ExamPage } from '../pages/exam/exam';
 import { BachecaEsamiPage } from '../pages/bacheca-esami/bacheca-esami';
 import { RecordBookPage } from '../pages/record-book/record-book';
 import { CoursesPage } from '../pages/courses/courses';
+import { TicketDetailPage } from '../pages/ticket-detail/ticket-detail';
+import { TicketPage } from '../pages/ticket/ticket';
+import { DepartmentPage } from '../pages/department/department';
 
 export interface MenuItem {
   title: string;
@@ -68,7 +71,9 @@ export class MyApp {
       } else {
         this.appMenuItems = [
           {title: 'Home', component: TeacherHomePage, icon: 'home'},
-          {title: 'Chat', component: ChatPage, icon: 'chatbubbles'}
+          {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
+          {title: 'Segnalazioni', component: TicketPage, icon: 'warning'},
+          {title: 'Dipartimento', component: DepartmentPage, icon: 'briefcase'}
         ];
       }
     }

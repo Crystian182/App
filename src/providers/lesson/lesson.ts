@@ -22,6 +22,7 @@ export class LessonProvider {
   saveFeedbackUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/saveFeedback';
   saveFeedbackFileUrl : string = 'http://' + this.global.address + ':8080/SpringApp/file/saveFeedback';
   getFeedbackFileUrl : string = 'http://' + this.global.address + ':8080/SpringApp/file/getFeedbackFile';
+  getTeacherTodayLessonsUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getTeacherTodayLessons';
 
   constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello LessonProvider Provider');
@@ -41,6 +42,10 @@ export class LessonProvider {
 
   getTodayLessons(iduser: number): Observable<Lesson[]>{
     return this.http.get<Lesson[]>(this.getTodayLessonsUrl + '/' + iduser);
+  }
+
+  getTeacherTodayLessons(iduser: number): Observable<Lesson[]>{
+    return this.http.get<Lesson[]>(this.getTeacherTodayLessonsUrl + '/' + iduser);
   }
 
   getFeedback(idlesson: number): Observable<Feedback[]>{

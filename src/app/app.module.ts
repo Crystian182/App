@@ -58,6 +58,13 @@ import { ExamPage } from '../pages/exam/exam';
 import { BachecaEsamiPage } from '../pages/bacheca-esami/bacheca-esami';
 import { CoursesPage } from '../pages/courses/courses';
 import { CourseDetailPage } from '../pages/course-detail/course-detail';
+import { TicketProvider } from '../providers/ticket/ticket';
+import { TicketPage } from '../pages/ticket/ticket';
+import { TicketDetailPage } from '../pages/ticket-detail/ticket-detail';
+import { DepartmentPage } from '../pages/department/department';
+import { BuildingProvider } from '../providers/building/building';
+import { ClassroomPage } from '../pages/classroom/classroom';
+import { BuildingPage } from '../pages/building/building';
 
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
@@ -95,7 +102,12 @@ const firebase = {
     ExamPage,
     BachecaEsamiPage,
     CoursesPage,
-    CourseDetailPage
+    CourseDetailPage,
+    TicketPage,
+    TicketDetailPage,
+    DepartmentPage,
+    ClassroomPage,
+    BuildingPage
   ],
   imports: [
     BrowserModule,
@@ -135,7 +147,12 @@ const firebase = {
     ExamPage,
     BachecaEsamiPage,
     CoursesPage,
-    CourseDetailPage
+    CourseDetailPage,
+    TicketPage,
+    TicketDetailPage,
+    DepartmentPage,
+    ClassroomPage,
+    BuildingPage
   ],
   providers: [
     Push,
@@ -166,7 +183,9 @@ const firebase = {
     FileProvider,
     ExamProvider,
     SchedulerProvider,
-    SubjectProvider
+    SubjectProvider,
+    TicketProvider,
+    BuildingProvider
   ]
 })
 export class AppModule {}

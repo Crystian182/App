@@ -1,0 +1,124 @@
+<!--
+  Generated template for the CalendarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Dettaglio Segnalazione</ion-title>    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content style="background-color: rgb(226, 231, 236)">
+        <ion-card  style="background-color: rgba(225, 255, 103, 0.185)">
+            
+            
+                <ion-card-header>
+                  
+                    <ion-row style="font-size: 13px; text-align: right;">
+                      <b>Creato il:</b>&nbsp;{{ticket.date | date:'dd/MM/yyyy HH:mm'}}
+                  </ion-row>
+                  <ion-row style="font-size: 13px; text-align: right;">
+                    <b>Da:</b>&nbsp;{{ticket.teacher.name}} {{ticket.teacher.surname}}
+                    </ion-row>
+                    
+                        <ion-row style="font-size: 13px; text-align: right;">
+                          <b>Stato:</b>&nbsp;{{ticket.ticketStatus.description}}
+                        </ion-row>
+                        <ion-row style="font-size: 13px; text-align: right;" *ngIf="ticket.employee.idemployee != null">
+                            <b>In carico a:</b>&nbsp;{{ticket.employee.name }} {{ticket.employee.surname }}
+                          </ion-row>
+                          <ion-row style="font-size: 13px; text-align: right;" *ngIf="ticket.employee.idemployee == null">
+                              In attesa di un operatore
+                            </ion-row>
+                  
+                </ion-card-header>
+                <ion-card style="background-color: rgba(225, 255, 103, 0.267)">
+                  <ion-card-header>
+                      <ion-row>
+                          <p style="font-size: 16px;"><b>Aula:</b>&nbsp;{{ticket.classroom.name}}, {{ticket.classroom.building.name}}</p>
+                      </ion-row>
+                      <ion-row>
+                          <p style="font-size: 16px;"><b>Titolo:</b>&nbsp;{{ticket.title}}</p>
+                      </ion-row>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <div *ngIf="ticket.teacher.idteacher == user.iduser">
+                      <div *ngFor="let m of ticket.ticketmessages">
+                        <ion-card *ngIf="m.user.iduser == user.iduser" style="background-color: rgba(163, 231, 174, 0.603)">
+                            <ion-card-content>
+                                <ion-row style="font-size: 10px;">
+                                    {{m.date | date:'dd/MM/yyyy HH:mm' }} &#8901; {{m.user.name}} {{m.user.surname}}
+                                  </ion-row>
+                                <ion-row>
+                                   {{m.text}}
+                                </ion-row>
+                              </ion-card-content>
+                          </ion-card>
+                          <ion-card *ngIf="m.user.iduser != user.iduser" style="background-color: rgba(163, 197, 231, 0.603)">
+                              <ion-card-content>
+                                  <ion-row style="font-size: 10px;">
+                                      {{m.date | date:'dd/MM/yyyy HH:mm' }} &#8901; {{m.user.name}} {{m.user.surname}}
+                                    </ion-row>
+                                  <ion-row>
+                                     {{m.text}}
+                                  </ion-row>
+                                </ion-card-content>
+                            </ion-card>
+                    </div>
+                  </div>
+                  <div *ngIf="ticket.teacher.idteacher != user.iduser">
+                      <div *ngFor="let m of ticket.ticketmessages; let i=index">
+                        <ion-card *ngIf="i%2==0" style="background-color: rgba(163, 231, 174, 0.603)">
+                            <ion-card-content>
+                                <ion-row style="font-size: 10px;">
+                                    {{m.date | date:'dd/MM/yyyy HH:mm' }} &#8901; {{m.user.name}} {{m.user.surname}}
+                                  </ion-row>
+                                <ion-row>
+                                   {{m.text}}
+                                </ion-row>
+                              </ion-card-content>
+                          </ion-card>
+                          <ion-card *ngIf="i%2!=0" style="background-color: rgba(163, 197, 231, 0.603)">
+                              <ion-card-content>
+                                  <ion-row style="font-size: 10px;">
+                                      {{m.date | date:'dd/MM/yyyy HH:mm' }} &#8901; {{m.user.name}} {{m.user.surname}}
+                                    </ion-row>
+                                  <ion-row>
+                                     {{m.text}}
+                                  </ion-row>
+                                </ion-card-content>
+                            </ion-card>
+                    </div>
+                  </div>
+                        
+                      <ion-row *ngIf="(ticket.ticketStatus.idstatus==1 || ticket.ticketStatus.idstatus==2) && ticket.teacher.idteacher==user.iduser && ticket.ticketmessages[ticket.ticketmessages.length-1].user.iduser != user.iduser && !addmessage">
+                          <button ion-button icon-left full (click)="addMessage()" style="background: transparent; color: #222222; border-radius: 12px">
+                              <ion-icon name="refresh"></ion-icon>
+                              Rispondi
+                            </button>
+                        </ion-row>
+                        <ion-row *ngIf="addmessage">
+                          <textarea [(ngModel)]='message' style="height: 60px; width: 100%" placeholder="Rispondi..."></textarea>
+                        </ion-row>
+                        <ion-row *ngIf="addmessage">
+                            <button ion-button icon-left full (click)="voidSend()" style="background: transparent; color: #222222; border-radius: 12px">
+                                <ion-icon name="close" style="color: red"></ion-icon>
+                                Annulla
+                              </button>
+                            <button ion-button icon-left full (click)="sendMessage()" style="background: transparent; color: #222222; border-radius: 12px">
+                                <ion-icon name="send" style="color: green"></ion-icon>
+                                Invia
+                              </button>
+                          </ion-row>
+                      </ion-card-content>
+                </ion-card>
+                
+  
+                
+          </ion-card>
+  </ion-content>

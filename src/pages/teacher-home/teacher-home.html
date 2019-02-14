@@ -1,5 +1,5 @@
 <!--
-  Generated template for the TeacherHomePage page.
+  Generated template for the StudentHomePage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -9,13 +9,171 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Home Insegnante</ion-title>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content style="background-color: rgb(226, 231, 236)">
-{{ user.name }} {{ user.surname }} è un {{ user.type }} 
-</ion-content>
+    <ion-card class="secondcard">
+      <ion-card-header>
+              <h1><b>Dati Insegnante</b></h1>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-5>
+              <div class="user-avatar">
+                <img [src]="_DomSanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + user?.propic)" onError="this.src='./assets/to-user.jpg';"/>
+              </div>    
+            </ion-col>
+            <ion-col col-7 style="padding-top: 7%">
+              <p style="font-size: 17px"><b>{{user?.name}} {{user.surname}}</b></p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <p><b>Data di nascita:</b> {{user?.dateBirth | date:'dd/MM/yyyy' }}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>Codice fiscale:</b> {{user?.ssn}}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>Residenza:</b> {{user?.residence}}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>E-mail:</b> {{user?.email}}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>Telefono:</b> {{user?.phone}}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>Sesso:</b> {{user?.sex}}</p>
+            </ion-row>
+            <ion-row>
+                <p><b>Nazionalità:</b> {{user?.citizenship}}</p>
+            </ion-row>
+            <ion-row>
+            <button ion-button icon-left small full menuClose (click)="userdetail()">
+                <ion-icon name="refresh"></ion-icon>
+                Aggiorna
+              </button>
+            </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
 
+      <ion-card class="secondcard">
+        <ion-card-header>
+                <h1><b>Le Lezioni di Oggi</b></h1>
+        </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              
+              <ion-list *ngIf="todayLessons">
+  
+                  <button *ngFor="let lesson of todayLessons" ion-item style="background: transparent; padding: 0%;" (click)="showLesson(lesson)">
+                    <ion-row>
+                      <ion-col col-5>
+                        <ion-row>
+                        <ion-col>
+                        <ion-row>
+                            {{lesson.start | date:'HH:mm' }}
+                        </ion-row>
+                        <ion-row>
+                            {{lesson.end | date:'HH:mm' }}
+                        </ion-row>
+                      </ion-col>
+                        <ion-col>
+                            <div style="width:3px;
+                            height:50px;
+                            background:rgb(11, 96, 54);
+                            margin-top: 0;
+                            position: relative;"></div>
+                        </ion-col>
+                      </ion-row>
+                      </ion-col>
+                      <ion-col col-7 style="padding-top:7%">
+                          {{lesson.typeLesson.subject.name}} in {{lesson.classroom.name}}
+                      </ion-col>
+                    </ion-row>
+                  </button>
+                  
+                  </ion-list>
+                  <ion-list *ngIf="todayLessons?.length == 0">
+                  Nessuna lezione oggi!
+                  </ion-list>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="secondcard">
+          <ion-card-header>
+                  <h1><b>Le tue Segnalazioni</b></h1>
+          </ion-card-header>
+            <ion-card-content>
+              <ion-grid>
+                
+                <ion-list *ngIf="tickets.length > 0">
+    
+                    <button *ngFor="let t of tickets" ion-item style="background: transparent; padding: 0%;" (click)="showTicket(t)">
+                      <ion-row >
+                        <ion-col col-4 >
+                          <ion-row >
+                          <ion-col >
+                          <ion-row >
+                              <p style="font-size: 25px">{{t.classroom.name }}</p>
+                          </ion-row>
+                          <ion-row style="text-align: center">
+                            <p style="font-size: 15px">{{t.classroom.building.name }}</p>
+                          </ion-row>
+                        </ion-col>
+                          <ion-col>
+                              <div style="width:3px;
+                              height:50px;
+                              background:rgb(11, 96, 54);
+                              margin-top: 0;
+                              position: relative;"></div>
+                          </ion-col>
+                        </ion-row>
+                        </ion-col>
+                        <ion-col col-8 style="padding-top:7%">
+                          <ion-row>
+                              <p style="font-size: 20px">{{trunk(t.title)}}</p>
+                          </ion-row>
+                            <ion-row>
+                                <p style="font-size: 10px">Ultimo aggiornamento {{ t.ticketmessages[t.ticketmessages.length-1].date | date:'dd/MM/yyyy HH:mm' }}</p>
+                            </ion-row>
+                        </ion-col>
+                      </ion-row>
+                    </button>
+                    
+                    </ion-list>
+                    <ion-list *ngIf="tickets?.length == 0">
+                    Nessuna segnalazione recente.
+                    </ion-list>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+
+        <ion-card class="secondcard">
+          <ion-card-header>
+                  <h1><b>Uploads</b></h1>
+          </ion-card-header>
+            <ion-card-content>
+              <ion-grid>
+                
+                <ion-list *ngIf="lessonFiles">
+                    <ion-row *ngFor="let f of lessonFiles; let i=index" style="padding-bottom: 5px">
+                        <div *ngIf="i<4">
+                        <ion-icon (click)="download(f.file.idFile)" name="download"></ion-icon> &nbsp;{{f.file.name}} ({{f.lesson.typeLesson.subject.name}})
+                      </div>
+                      </ion-row>
+                </ion-list>
+                <ion-list *ngIf="lessonFiles?.length == 0">
+                    Nessuna file recente.
+                    </ion-list>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+
+</ion-content>
 

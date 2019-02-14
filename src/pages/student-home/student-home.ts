@@ -24,6 +24,7 @@ import { UserDetailPage } from '../user-detail/user-detail';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File as Fil } from '@ionic-native/file';  
 import { GlobalProvider } from '../../providers/global/global';
+import { LessonDetailPage } from '../lesson-detail/lesson-detail';
 /**
  * Generated class for the StudentHomePage page.
  *
@@ -147,6 +148,12 @@ export class StudentHomePage {
       }, (error) => {
         console.log(error)
       });
+  }
+
+  showLesson(lesson) {
+    this.navCtrl.push(LessonDetailPage, {
+      lesson: lesson
+    })
   }
 
 
