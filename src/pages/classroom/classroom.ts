@@ -5,6 +5,8 @@ import { Building } from '../../models/Building';
 import { Ticket } from '../../models/Ticket';
 import { TicketProvider } from '../../providers/ticket/ticket';
 import { User } from '../../models/User';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { TicketDetailPage } from '../ticket-detail/ticket-detail';
 
 /**
  * Generated class for the ClassroomPage page.
@@ -24,7 +26,7 @@ building: Building
 tickets: Ticket[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public ticketProvider: TicketProvider) {
+  public ticketProvider: TicketProvider, private launchNavigator: LaunchNavigator) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.classroom = this.navParams.get('classroom');
     this.building = this.navParams.get('building');
@@ -44,5 +46,19 @@ tickets: Ticket[];
     let label: String = title
     console.log(label[19])
     return label.substring(0, 20) + '...'
+  }
+
+  showMap() {
+    this.launchNavigator.navigate([this.classroom.lat, this.classroom.lng])
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
+  }
+
+  showTicket(ticket) {
+    this.navCtrl.push(TicketDetailPage, {
+      ticket: ticket
+    })
   }
 }

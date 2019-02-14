@@ -27,6 +27,7 @@ import { GlobalProvider } from '../../providers/global/global';
 import { LessonDetailPage } from '../lesson-detail/lesson-detail';
 import { Ticket } from '../../models/Ticket';
 import { TicketProvider } from '../../providers/ticket/ticket';
+import { TicketDetailPage } from '../ticket-detail/ticket-detail';
 
 /**
  * Generated class for the TeacherHomePage page.
@@ -110,7 +111,9 @@ export class TeacherHomePage {
   }
 
   showTicket(ticket) {
-
+    this.navCtrl.push(TicketDetailPage, {
+      ticket: ticket
+    })
   }
 
   trunk(title) {

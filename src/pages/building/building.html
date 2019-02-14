@@ -25,10 +25,11 @@
                   <p style="font-size: 18px">{{ building.address }}</p>
                 </ion-row>
                 <ion-row>
-                    <p style="font-size: 18px">Trovalo sulla mappa!</p>
+                    <button (click)="showMap()" style="background-color: transparent"><p style="font-size: 18px"><ion-icon style="color: rgb(36, 131, 240)" name="navigate"></ion-icon>&nbsp;Trovalo sulla mappa!</p></button>
                   </ion-row>
           </ion-card-header>
             <ion-card-content>
+              <h1>Aule</h1>
               <ion-card *ngFor="let c of building.classrooms">
                 <ion-card-content>
                     <button ion-item style="background: transparent; padding: 0%;"  (click)="showClass(c)">

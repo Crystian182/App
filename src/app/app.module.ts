@@ -65,6 +65,8 @@ import { DepartmentPage } from '../pages/department/department';
 import { BuildingProvider } from '../providers/building/building';
 import { ClassroomPage } from '../pages/classroom/classroom';
 import { BuildingPage } from '../pages/building/building';
+import { TeacherCalendarPage } from '../pages/teacher-calendar/teacher-calendar';
+import { TeacherLessonPage } from '../pages/teacher-lesson/teacher-lesson';
 
 const firebase = {
   apiKey: "AIzaSyAPiAUwJjy0dkG86E1ChL7r1SzgnmycyVM",
@@ -107,14 +109,18 @@ const firebase = {
     TicketDetailPage,
     DepartmentPage,
     ClassroomPage,
-    BuildingPage
+    BuildingPage,
+    TeacherCalendarPage,
+    TeacherLessonPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,{
       tabsHideOnSubPages:true,
       tabsLayout:'icon-left',
-      preloadModules: true
+      preloadModules: true,
+      scrollPadding: false,
+      scrollAssist: false
     }),
     AngularFireModule.initializeApp(firebase), 
     AngularFirestoreModule,
@@ -152,7 +158,9 @@ const firebase = {
     TicketDetailPage,
     DepartmentPage,
     ClassroomPage,
-    BuildingPage
+    BuildingPage,
+    TeacherCalendarPage,
+    TeacherLessonPage
   ],
   providers: [
     Push,

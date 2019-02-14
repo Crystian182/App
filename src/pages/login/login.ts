@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login';
 import { StudentHomePage } from '../student-home/student-home';
 import { TeacherHomePage } from '../teacher-home/teacher-home';
@@ -16,6 +16,7 @@ export class LoginPage {
   @ViewChild('email') email;
   @ViewChild('password') password;
   user: User
+  loading: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -23,7 +24,11 @@ export class LoginPage {
               public loginProvider: LoginProvider,
               public events: Events,
               public push: Push,
-              public fdb: AngularFireDatabase) {
+              public fdb: AngularFireDatabase,
+              private loadingCtrl: LoadingController) {
+                this.loading = this.loadingCtrl.create({
+                  content: 'Attendi...'
+              });
                 this.loginProvider.isTokenValid().subscribe(res => {
                   if(JSON.parse(window.localStorage['currentUser'] || '[]') != null && res == true) {
                     if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
@@ -43,6 +48,7 @@ export class LoginPage {
  
 
   signInUser() {
+    this.loading.present();
     this.loginProvider.login(this.email.value, this.password.value).subscribe(data => {
       if(data.type == 'student') {
         this.navCtrl.push(StudentHomePage, {
@@ -62,6 +68,7 @@ export class LoginPage {
         window.localStorage['currentUser'] = null;
         this.showAlert('Accesso non autorizzato')
       }
+      this.loading.dismiss()
       }, error => {
           this.showAlert('Utente non esistente')
       });

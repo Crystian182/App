@@ -108,7 +108,7 @@
           </ion-card>
               <ion-card-content>
                   
-                <ion-row *ngIf="canPostFeedbackLesson() && !posted">
+                <ion-row *ngIf="canPostFeedbackLesson() && !posted && user.type!='teacher'">
                     <button ion-button icon-left full (click)="addFeed()" style="background: transparent; color: #222222; border-radius: 12px">
                         <ion-icon name="add-circle" style="color: green"></ion-icon>
                         Aggiungi

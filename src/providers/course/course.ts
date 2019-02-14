@@ -18,6 +18,7 @@ export class CourseProvider {
 
 
   getAllUrl: string = 'http://' + this.global.address + ':8080/SpringApp/course/getAll';
+  getTeacherCoursesUrl: string = 'http://' + this.global.address + ':8080/SpringApp/course/getAllTeacherCourses';
 
   constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello CourseProvider Provider');
@@ -25,6 +26,10 @@ export class CourseProvider {
 
   getAll(): Observable<DegreeCourse[]>{
     return this.http.get<DegreeCourse[]>(this.getAllUrl);
+  }
+
+  getTeacherCourses(idteacher: number): Observable<DegreeCourse[]>{
+    return this.http.get<DegreeCourse[]>(this.getTeacherCoursesUrl + '/' + idteacher);
   }
 
 }

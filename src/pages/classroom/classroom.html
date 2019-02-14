@@ -27,12 +27,12 @@
                     <p style="font-size: 18px"><ion-icon name="tablet-portrait"></ion-icon>&nbsp;{{ classroom.seats }} posti</p>
                   </ion-row>
                 <ion-row>
-                    <p style="font-size: 18px">Trovala sulla mappa!</p>
+                    <button (click)="showMap()" style="background-color: transparent"><p style="font-size: 18px"><ion-icon style="color: rgb(36, 131, 240)" name="navigate"></ion-icon>&nbsp;Trovala sulla mappa!</p></button>
                   </ion-row>
           </ion-card-header>
             <ion-card-content>
               <ion-card>
-              <ion-card-header>Strumenti didattica</ion-card-header>
+              <ion-card-header><h1>Strumenti didattica</h1></ion-card-header>
             <ion-card-content>
               <ion-card *ngFor="let t of classroom.tool">
                 <ion-card-content>
@@ -45,38 +45,28 @@
               </ion-card-content>
             </ion-card>
             <ion-card *ngIf="user.type=='teacher'">
-                <ion-card-header>Segnalazioni</ion-card-header>
+                <ion-card-header><h1>Segnalazioni</h1></ion-card-header>
               <ion-card-content>
                 <ion-card *ngFor="let t of tickets">
                   <ion-card-content>
                       <button ion-item style="background: transparent; padding: 0%;" (click)="showTicket(t)">
                           <ion-row >
-                            <ion-col col-4 >
-                              <ion-row >
-                              <ion-col >
-                              <ion-row >
-                                  <p style="font-size: 25px">{{t.classroom.name }}</p>
-                              </ion-row>
-                              <ion-row style="text-align: center">
-                                <p style="font-size: 15px">{{t.classroom.building.name }}</p>
-                              </ion-row>
-                            </ion-col>
-                              <ion-col>
-                                  <div style="width:3px;
-                                  height:50px;
-                                  background:rgb(11, 96, 54);
-                                  margin-top: 0;
-                                  position: relative;"></div>
+                            <ion-col col-4 style="padding-top: 14%">
+                                <ion-icon *ngIf="t.ticketStatus.idstatus == 1" style="color: yellow" name="radio-button-on"></ion-icon>
+                                <ion-icon *ngIf="t.ticketStatus.idstatus == 2" style="color: yellow" name="radio-button-on"></ion-icon>
+                                <ion-icon *ngIf="t.ticketStatus.idstatus == 3" style="color: green" name="radio-button-on"></ion-icon>
+                                <ion-icon *ngIf="t.ticketStatus.idstatus == 4" style="color: red" name="radio-button-on"></ion-icon>
                               </ion-col>
-                            </ion-row>
-                            </ion-col>
                             <ion-col col-8 style="padding-top:7%">
                               <ion-row>
-                                  <p style="font-size: 20px">{{trunk(t.title)}}</p>
+                                  <p style="font-size: 15px">{{trunk(t.title)}}</p>
                               </ion-row>
-                                <ion-row>
-                                    <p style="font-size: 10px">Ultimo aggiornamento {{ t.ticketmessages[t.ticketmessages.length-1].date | date:'dd/MM/yyyy HH:mm' }}</p>
-                                </ion-row>
+                              <ion-row>
+                                  <p style="font-size: 10px">Creata il {{t.date | date:'dd/MM/yyyy'}}</p>
+                              </ion-row>
+                              <ion-row>
+                                  <p style="font-size: 10px">Stato: {{t.ticketStatus.description}}</p>
+                              </ion-row>
                             </ion-col>
                           </ion-row>
                         </button>

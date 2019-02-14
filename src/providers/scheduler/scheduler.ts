@@ -16,6 +16,7 @@ import { TypeLesson } from '../../models/TypeLesson';
 export class SchedulerProvider {
 
   getSchedulerUrl: string = 'http://' + this.global.address + ':8080/SpringApp/scheduler/getScheduler';
+  getTeacherSchedulerUrl: string = 'http://' + this.global.address + ':8080/SpringApp/scheduler/getSchedulerTeacher';
 
 
   constructor(public http: HttpClient, public global: GlobalProvider) {
@@ -24,6 +25,10 @@ export class SchedulerProvider {
 
   getScheduler(id: any, degreeCourse: DegreeCourse): Observable<any>{
     return this.http.post(this.getSchedulerUrl + '/' + id, degreeCourse);
+  }
+
+  getSchedulerTeacher(idteacher: number): Observable<TypeLesson[]>{
+    return this.http.get<TypeLesson[]>(this.getTeacherSchedulerUrl + '/' + idteacher);
   }
 
 }

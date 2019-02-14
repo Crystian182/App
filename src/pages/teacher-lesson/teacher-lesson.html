@@ -1,0 +1,93 @@
+<!--
+  Generated template for the CalendarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar hideBackButton color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Lezioni</ion-title>    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content style="background-color: rgb(226, 231, 236)">
+  
+          <ion-card *ngIf="!valid" class="secondcard" style="padding: 0">
+              <ion-item>
+                  <ion-label>Insegnamento</ion-label>
+              </ion-item>
+              <ion-item>
+                  <ion-select [(ngModel)]="selectedSubject" style="width: 100% !important; max-width: 100% !important;" placeholder="Seleziona insegnamento">
+                    <ion-option style="width: 100%" *ngFor="let s of subjects" value="{{s.id}}">{{ s.name }}</ion-option>
+                </ion-select>
+              </ion-item>
+                <ion-item>
+                  <ion-label>Dal</ion-label>
+                  </ion-item>
+                  <ion-item>
+                  <ion-datetime [(ngModel)]="fromDate" displayFormat="DD/MM/YYYY" placeholder="Seleziona data"></ion-datetime>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Al</ion-label>
+                  </ion-item>
+                  <ion-item>
+                  <ion-datetime [(ngModel)]="toDate" displayFormat="DD/MM/YYYY" placeholder="Seleziona data"></ion-datetime>
+                </ion-item>
+              <button ion-button icon-left small full menuClose (click)="showSubjects()">
+                  <ion-icon name="refresh"></ion-icon>
+                  Visualizza
+                </button>
+          </ion-card>
+  
+          <div *ngIf="valid">
+              
+  
+                <ion-label *ngIf="lessons?.length == 0" style="text-align: center; padding-top: 50%; padding-bottom: 50%">
+                  Nessun risultato
+                </ion-label>
+  
+                <ion-card *ngIf="lessons.length != 0" class="secondcard">
+                    <ion-grid>
+                      <ion-row style="text-align: center">
+                            <ion-label><p style="font-size: 30px">{{lessons[0].typeLesson.subject.name}}</p></ion-label>
+                      </ion-row>
+                    </ion-grid>
+                    </ion-card>
+  
+                <ion-card  class="secondcard" *ngFor="let l of lessons">
+                    
+                    
+                    <ion-card-content>
+                        <ion-item style="background-color: transparent;">
+                            <button style="background: transparent; font-size: 17px">
+                          <ion-icon name="calendar"></ion-icon> Data: {{ l.start | date:'dd/MM/yyyy' }}
+                        </button>
+                        </ion-item>
+                        <ion-item style="background-color: transparent;">
+                            <button style="background: transparent; font-size: 17px">
+                          <ion-icon name="calendar"></ion-icon> Inizio: {{ l.start | date:'HH:mm' }}
+                        </button>
+                        </ion-item>
+                        <ion-item style="background-color: transparent;">
+                            <button style="background: transparent; font-size: 17px">
+                          <ion-icon name="calendar"></ion-icon> Fine: {{ l.end | date:'HH:mm' }}
+                        </button>
+                        </ion-item>
+                        <ion-item style="background-color: transparent;">
+                          <button style="background: transparent; font-size: 17px; text-decoration: underline;" (click)="showClassroom(l.classroom)">
+                              <ion-icon name="locate"></ion-icon> Aula: {{ l.classroom.name }} - {{ l.classroom.building.name }}
+                        
+                          </button>
+                        </ion-item>
+                        <ion-item style="background-color: transparent; text-align: center">
+                            <button style="background: transparent; font-size: 20px;" (click)="showDetail(l)">
+                                <ion-icon name="information-circle"></ion-icon> Dettagli
+                            </button>
+                          </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+          </div>  
+  </ion-content>

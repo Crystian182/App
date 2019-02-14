@@ -27,6 +27,8 @@ import { CoursesPage } from '../pages/courses/courses';
 import { TicketDetailPage } from '../pages/ticket-detail/ticket-detail';
 import { TicketPage } from '../pages/ticket/ticket';
 import { DepartmentPage } from '../pages/department/department';
+import { TeacherCalendarPage } from '../pages/teacher-calendar/teacher-calendar';
+import { TeacherLessonPage } from '../pages/teacher-lesson/teacher-lesson';
 
 export interface MenuItem {
   title: string;
@@ -57,26 +59,7 @@ export class MyApp {
       public alertCtrl: AlertController, public firebase: Firebase, public push: Push, public toastCtrl: ToastController) {
     this.initializeApp();
     
-    if(JSON.parse(window.localStorage['currentUser'] || '[]') != null) {
-      if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
-        this.appMenuItems = [
-          {title: 'Home', component: StudentHomePage, icon: 'home'},
-          {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
-          {title: 'Calendario Lezioni', component: CalendarPage, icon: 'calendar'},
-          {title: 'Lezioni', component: LessonPage, icon: 'clipboard'},
-          {title: 'Esami', component: ExamPage, icon: 'folder'},
-          {title: 'Bacheca prenotazioni', component: BachecaEsamiPage, icon: 'search'},
-          {title: 'Corsi', component: CoursesPage, icon: 'book'}
-        ];
-      } else {
-        this.appMenuItems = [
-          {title: 'Home', component: TeacherHomePage, icon: 'home'},
-          {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
-          {title: 'Segnalazioni', component: TicketPage, icon: 'warning'},
-          {title: 'Dipartimento', component: DepartmentPage, icon: 'briefcase'}
-        ];
-      }
-    }
+    
     
     events.subscribe('user:loggedin', (user) => {
       this.user = user;
@@ -108,6 +91,58 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
+
+      if(JSON.parse(window.localStorage['currentUser'] || '[]') != null) {
+        if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
+          this.appMenuItems = [
+            {title: 'Home', component: StudentHomePage, icon: 'home'},
+            {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
+            {title: 'Calendario Lezioni', component: CalendarPage, icon: 'calendar'},
+            {title: 'Lezioni', component: LessonPage, icon: 'clipboard'},
+            {title: 'Esami', component: ExamPage, icon: 'folder'},
+            {title: 'Bacheca prenotazioni', component: BachecaEsamiPage, icon: 'search'},
+            {title: 'Corsi', component: CoursesPage, icon: 'book'},
+            {title: 'Dipartimento', component: DepartmentPage, icon: 'briefcase'}
+          ];
+        } else {
+          this.appMenuItems = [
+            {title: 'Home', component: TeacherHomePage, icon: 'home'},
+            {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
+            {title: 'Segnalazioni', component: TicketPage, icon: 'warning'},
+            {title: 'Calendario Lezioni', component: TeacherCalendarPage, icon: 'calendar'},
+            {title: 'Lezioni', component: TeacherLessonPage, icon: 'clipboard'},
+            {title: 'Corsi', component: CoursesPage, icon: 'book'},
+            {title: 'Dipartimento', component: DepartmentPage, icon: 'briefcase'}
+          ];
+        }
+      }
+
+      this.events.subscribe('user:loggedin', user => {
+        if(user.type == 'student') {
+          this.appMenuItems = [
+            {title: 'Home', component: StudentHomePage, icon: 'home'},
+            {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
+            {title: 'Calendario Lezioni', component: CalendarPage, icon: 'calendar'},
+            {title: 'Lezioni', component: LessonPage, icon: 'clipboard'},
+            {title: 'Esami', component: ExamPage, icon: 'folder'},
+            {title: 'Bacheca prenotazioni', component: BachecaEsamiPage, icon: 'search'},
+            {title: 'Corsi', component: CoursesPage, icon: 'book'},
+            {title: 'Dipartimento', component: DepartmentPage, icon: 'briefcase'}
+          ];
+        } else {
+          this.appMenuItems = [
+            {title: 'Home', component: TeacherHomePage, icon: 'home'},
+            {title: 'Chat', component: ChatPage, icon: 'chatbubbles'},
+            {title: 'Segnalazioni', component: TicketPage, icon: 'warning'},
+            {title: 'Calendario Lezioni', component: TeacherCalendarPage, icon: 'calendar'},
+            {title: 'Lezioni', component: TeacherLessonPage, icon: 'clipboard'},
+            {title: 'Corsi', component: CoursesPage, icon: 'book'},
+            {title: 'Dipartimento', component: DepartmentPage, icon: 'briefcase'}
+          ];
+        }
+      }
+    )
+      
 
       if (this.platform.is('cordova')) {
 				// Initialize push notification feature

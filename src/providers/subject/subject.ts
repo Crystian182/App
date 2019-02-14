@@ -18,6 +18,7 @@ export class SubjectProvider {
   getSubjectByUrl: string = 'http://' + this.global.address + ':8080/SpringApp/subject/getByIdCourse';
   getAllStudentSubjectUrl: string = 'http://' + this.global.address + ':8080/SpringApp/subject/getByIdStudent';
   getSubjectFilesUrl: string = 'http://' + this.global.address + ':8080/SpringApp/file/getSubjectFiles';
+  getAllTeacherSubjectUrl: string = 'http://' + this.global.address + ':8080/SpringApp/subject/getByIdTeacher';
 
   constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello SubjectProvider Provider');
@@ -29,6 +30,10 @@ export class SubjectProvider {
 
   getAllStudentSubject(idstudent: number): Observable<SubjectStudy[]>{
     return this.http.get<SubjectStudy[]>(this.getAllStudentSubjectUrl + '/' + idstudent);
+  }
+
+  getAllTeacherSubject(idteacher: number): Observable<SubjectStudy[]>{
+    return this.http.get<SubjectStudy[]>(this.getAllTeacherSubjectUrl + '/' + idteacher);
   }
 
   getSubjectFiles(idsubject: number): Observable<FileLesson[]>{

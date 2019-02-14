@@ -23,10 +23,18 @@ export class CoursesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public subjectProvider: SubjectProvider) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-    this.subjectProvider.getAllStudentSubject(this.user.iduser).subscribe(subjects => {
-      this.subjects = subjects;
-      console.log(this.subjects)
-    })
+    if(this.user == 'student'){
+      this.subjectProvider.getAllStudentSubject(this.user.iduser).subscribe(subjects => {
+        this.subjects = subjects;
+        console.log(this.subjects)
+      })
+    } else {
+      this.subjectProvider.getAllTeacherSubject(this.user.iduser).subscribe(subjects => {
+        this.subjects = subjects;
+        console.log(this.subjects)
+      })
+    }
+    
   }
 
   ionViewDidLoad() {

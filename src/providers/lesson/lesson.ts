@@ -18,6 +18,7 @@ export class LessonProvider {
   getLessonByIdUrl: string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getById';
   getTodayLessonsUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getTodayLessons';
   searchLessonsUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/searchLessons';
+  searchTeacherLessonsUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/searchTeacherLessons';
   getFeedbackUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/getFeedback';
   saveFeedbackUrl : string = 'http://' + this.global.address + ':8080/SpringApp/lesson/saveFeedback';
   saveFeedbackFileUrl : string = 'http://' + this.global.address + ':8080/SpringApp/file/saveFeedback';
@@ -34,6 +35,10 @@ export class LessonProvider {
 
   searchLessons(idcourse: number, idterm: any, idsubject: number, from: String, to: String): Observable<Lesson[]>{
     return this.http.get<Lesson[]>(this.searchLessonsUrl + '/idcourse=' + idcourse + '&idterm=' + idterm + '&idsubject=' + idsubject + '&from=' + from + '&to=' + to);
+  }
+
+  searchTeacherLessons(idsubject: number, from: String, to: String): Observable<Lesson[]>{
+    return this.http.get<Lesson[]>(this.searchTeacherLessonsUrl + '/idsubject=' + idsubject + '&from=' + from + '&to=' + to);
   }
 
   getById(idlesson: number): Observable<Lesson>{

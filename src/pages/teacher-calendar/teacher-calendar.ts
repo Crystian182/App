@@ -11,6 +11,7 @@ import { Day } from '../../models/day';
 import { Scheduler } from '../../models/scheduler';
 import { TypeLesson } from '../../models/TypeLesson';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { CourseProvider } from '../../providers/course/course';
 
 /**
  * Generated class for the CalendarPage page.
@@ -20,10 +21,10 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-na
  */
 
 @Component({
-  selector: 'page-calendar',
-  templateUrl: 'calendar.html',
+  selector: 'teacher-page-calendar',
+  templateUrl: 'teacher-calendar.html',
 })
-export class CalendarPage {
+export class TeacherCalendarPage {
   events = [];
   valid: boolean = false;
   user: User;
@@ -31,7 +32,7 @@ export class CalendarPage {
   enrollment: StudentHasDegreeCourse;
   selectedTerm: Term;
   terms: Term[] = [];
-  typeLessons: TypeLesson[]
+  typeLessons: TypeLesson[] = []
  days: Day[] = [
    {idDay: 1, name: 'Lunedì'},
    {idDay: 2, name: 'Martedì'},
@@ -47,58 +48,15 @@ export class CalendarPage {
     private calendar: Calendar, public studentProvider: StudentProvider,
   public schedulerProvider: SchedulerProvider, private launchNavigator: LaunchNavigator) {
       this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-
-      this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
-        console.log(enrollment)
-        for(let t of enrollment.degreeCourse.academicYear.terms) {
-          this.terms.push({
-            idterm: t.idterm,
-            start: t.start,
-            end: t.end
-          })
-        }
-        this.degreeCourse = {
-          idcourse: enrollment.degreeCourse.idcourse,
-          name: enrollment.degreeCourse.name,
-          typeDegreeCourse: {
-            idtypeDegreeCourse: enrollment.degreeCourse.typeDegreeCourse.idtypeDegreeCourse,
-            name:  enrollment.degreeCourse.typeDegreeCourse.name,
-            courseType: {
-              idcourseType: enrollment.degreeCourse.typeDegreeCourse.courseType.idcourseType,
-              description: enrollment.degreeCourse.typeDegreeCourse.courseType.description,
-              duration: enrollment.degreeCourse.typeDegreeCourse.courseType.duration,
-              cfu: enrollment.degreeCourse.typeDegreeCourse.courseType.cfu
-            }
-            
-          },
-          academicYear: {
-            idacademicYear: enrollment.degreeCourse.academicYear.idacademicYear,
-            year: enrollment.degreeCourse.academicYear.year,
-            terms: this.terms
-          }
-        }
-        this.enrollment = {
-          date: enrollment.date,
-          enrollmentStatus: {
-            idenrollmentStatus: enrollment.enrollmentStatus.idenrollmentStatus,
-            description: enrollment.enrollmentStatus.description
-          }
-        }
-        console.log(this.degreeCourse)
-       })
-
+    this.schedulerProvider.getSchedulerTeacher(this.user.iduser).subscribe(typelessons => {
+      this.typeLessons = typelessons
+      console.log(this.typeLessons)
+    })
+      
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CalendarPage');
-  }
-
-  getScheduler() {
-    this.schedulerProvider.getScheduler(this.selectedTerm, this.degreeCourse).subscribe(typelessons => {
-      this.typeLessons = typelessons
-      console.log(this.typeLessons)
-      this.valid = true;
-    })
+    console.log('ionViewDidLoad TeacherCalendarPage');
   }
 
   hasLessonsToday() {
