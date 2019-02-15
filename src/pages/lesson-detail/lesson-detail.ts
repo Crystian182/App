@@ -34,6 +34,8 @@ export class LessonDetailPage {
   public modalCtrl : ModalController, public events: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.lesson = this.navParams.get('lesson');
+      
+    
     console.log(this.lesson)
     this.lessonProvider.getFeedback(this.lesson.idlesson).subscribe(feeds => {
       this.feedbacks = feeds

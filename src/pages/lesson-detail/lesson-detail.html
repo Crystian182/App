@@ -18,27 +18,27 @@
           
           <ion-card-content>
               <ion-card-header>
-                    <h1>{{lesson.typeLesson.subject.name}}</h1>
+                    <h1>{{lesson?.typeLesson.subject.name}}</h1>
               </ion-card-header>
 
               <ion-item style="background-color: transparent;">
                   <button style="background: transparent; font-size: 17px">
-                <ion-icon name="calendar"></ion-icon> Data: {{ lesson.start | date:'dd/MM/yyyy' }}
+                <ion-icon name="calendar"></ion-icon> Data: {{ lesson?.start | date:'dd/MM/yyyy' }}
               </button>
               </ion-item>
               <ion-item style="background-color: transparent;">
                   <button style="background: transparent; font-size: 17px">
-                <ion-icon name="calendar"></ion-icon> Inizio: {{ lesson.start | date:'HH:mm' }}
+                <ion-icon name="calendar"></ion-icon> Inizio: {{ lesson?.start | date:'HH:mm' }}
               </button>
               </ion-item>
               <ion-item style="background-color: transparent;">
                   <button style="background: transparent; font-size: 17px">
-                <ion-icon name="calendar"></ion-icon> Fine: {{ lesson.end | date:'HH:mm' }}
+                <ion-icon name="calendar"></ion-icon> Fine: {{ lesson?.end | date:'HH:mm' }}
               </button>
               </ion-item>
               <ion-item style="background-color: transparent;">
                 <button style="background: transparent; font-size: 17px; text-decoration: underline;" (click)="showClassroom(l.classroom)">
-                    <ion-icon name="locate"></ion-icon> Aula: {{ lesson.classroom.name }} - {{ lesson.classroom.building.name }}
+                    <ion-icon name="locate"></ion-icon> Aula: {{ lesson?.classroom.name }} - {{ lesson?.classroom.building.name }}
               
                 </button>
               </ion-item>

@@ -12,16 +12,17 @@ import { Http ,HttpModule} from '@angular/http'
 import { map, tap } from 'rxjs/operators';
 import { Nav, Platform, NavController, Events } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
+import { GlobalProvider } from '../providers/global/global';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   @ViewChild(Nav) nav: Nav;
 
-  constructor(public events: Events) {}
+  constructor(public events: Events, public global: GlobalProvider) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
 
-    if(request.url!='http://192.168.1.11:8080/SpringApp/public/login' && request.url!='http://192.168.1.11:8080/SpringApp/refreshtoken') {
+    if(request.url!='http://' + this.global.address + ':8080/SpringApp/public/login' && request.url!='http://' + this.global.address + ':8080/SpringApp/refreshtoken') {
       /*this.loginService.refreshToken().subscribe(token => {
         this.user = JSON.parse(localStorage.getItem('currentUser'));
         this.user.token = JSON.stringify({ token: token })

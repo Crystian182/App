@@ -29,6 +29,8 @@ import { TicketPage } from '../pages/ticket/ticket';
 import { DepartmentPage } from '../pages/department/department';
 import { TeacherCalendarPage } from '../pages/teacher-calendar/teacher-calendar';
 import { TeacherLessonPage } from '../pages/teacher-lesson/teacher-lesson';
+import { LessonDetailPage } from '../pages/lesson-detail/lesson-detail';
+import { LessonProvider } from '../providers/lesson/lesson';
 
 export interface MenuItem {
   title: string;
@@ -55,7 +57,7 @@ export class MyApp {
   appMenuItems: Array<MenuItem>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-      public events: Events,public _DomSanitizer: DomSanitizer, public loginService: LoginProvider,
+      public events: Events,public _DomSanitizer: DomSanitizer, public loginService: LoginProvider, public lessonProvider: LessonProvider,
       public alertCtrl: AlertController, public firebase: Firebase, public push: Push, public toastCtrl: ToastController) {
     this.initializeApp();
     
@@ -222,8 +224,12 @@ private subscribeToPushNotificationEvents(): void {
           this.nav.push(ChatChannelPage, {
             chat: {toUser: {iduser: notification.iduser, name: notification.name, surname: notification.surname}}         
           });
-        } else {
+        } else if(notification.type == 'public'){
           this.nav.push(ChatPage);
+        } else if(notification.type == 'feedlesson'){
+          this.nav.push(LessonDetailPage, {
+            lesson: {idlesson: notification.additionalData}
+          });
         }
       }
     },
@@ -270,9 +276,24 @@ private subscribeToPushNotificationEvents(): void {
       position: 'top',
       dismissOnPageChange: true
     });
-    if(this.nav.getActive().component.name != 'ChatChannelPage') {
-      toast.present();
-    }
+    if(notification.type=='private' || notification.type=='public') {
+      console.log(this.nav.getActive())
+      if(this.nav.getActive().component.name != 'ChatChannelPage') {
+        toast.present();
+      }
+    } else if(notification.additionalData.type == 'feedlesson' || notification.additionalData.type == 'filelesson'){
+      if(notification.additionalData.foreground) {
+        toast.present();
+      } else {
+        this.lessonProvider.getById(notification.additionalData.idlesson).subscribe(lesson => {
+          this.nav.push(LessonDetailPage, {
+            lesson: lesson
+          });
+        })
+        
+      }
+    } 
+    
   });
 }
   
