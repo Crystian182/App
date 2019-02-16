@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { User } from '../../models/User';
 import { Lesson } from '../../models/Lesson';
@@ -25,6 +25,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File as Fil } from '@ionic-native/file';  
 import { GlobalProvider } from '../../providers/global/global';
 import { LessonDetailPage } from '../lesson-detail/lesson-detail';
+import { FileOpener } from '@ionic-native/file-opener';
 /**
  * Generated class for the StudentHomePage page.
  *
@@ -58,7 +59,9 @@ export class StudentHomePage {
     public _DomSanitizer: DomSanitizer,
     private transfer: FileTransfer,
     public fil: Fil,
-    public global: GlobalProvider) {
+    public global: GlobalProvider,
+  public modalCtrl: ModalController,
+public fileOpener: FileOpener) {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
 
        this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
@@ -145,6 +148,11 @@ export class StudentHomePage {
     const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + file.idFile;
       fileTransfer.download(url, this.fil.externalDataDirectory + file.name).then((entry) => {
         console.log('download complete: ' + entry.toURL());
+        var modalPage = this.modalCtrl.create('ModalConfirmPage');
+        modalPage.present();
+        this.fileOpener.open(entry.toURL(), 'application/com.sec.android.app.myfiles')
+          .then(() => console.log('File is opened'))
+          .catch(e => console.log('Error opening file', e));
       }, (error) => {
         console.log(error)
       });

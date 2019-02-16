@@ -31,6 +31,7 @@ import { TeacherCalendarPage } from '../pages/teacher-calendar/teacher-calendar'
 import { TeacherLessonPage } from '../pages/teacher-lesson/teacher-lesson';
 import { LessonDetailPage } from '../pages/lesson-detail/lesson-detail';
 import { LessonProvider } from '../providers/lesson/lesson';
+import { TicketProvider } from '../providers/ticket/ticket';
 
 export interface MenuItem {
   title: string;
@@ -58,7 +59,7 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
       public events: Events,public _DomSanitizer: DomSanitizer, public loginService: LoginProvider, public lessonProvider: LessonProvider,
-      public alertCtrl: AlertController, public firebase: Firebase, public push: Push, public toastCtrl: ToastController) {
+      public ticketProvider: TicketProvider, public alertCtrl: AlertController, public firebase: Firebase, public push: Push, public toastCtrl: ToastController) {
     this.initializeApp();
     
     
@@ -70,7 +71,6 @@ export class MyApp {
       if(res == false) {
         this.rootPage = LoginPage;
       } else {
-        console.log('ehi')
         if(JSON.parse(window.localStorage['currentUser'] || '[]') != null){
           this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
           if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
@@ -281,13 +281,24 @@ private subscribeToPushNotificationEvents(): void {
       if(this.nav.getActive().component.name != 'ChatChannelPage') {
         toast.present();
       }
-    } else if(notification.additionalData.type == 'feedlesson' || notification.additionalData.type == 'filelesson'){
+    } else if(notification.additionalData.type == 'lesson'){
       if(notification.additionalData.foreground) {
         toast.present();
       } else {
         this.lessonProvider.getById(notification.additionalData.idlesson).subscribe(lesson => {
           this.nav.push(LessonDetailPage, {
             lesson: lesson
+          });
+        })
+        
+      }
+    } else if(notification.additionalData.type == 'ticket'){
+      if(notification.additionalData.foreground) {
+        toast.present();
+      } else {
+        this.ticketProvider.getById(notification.additionalData.idticket).subscribe(ticket => {
+          this.nav.push(TicketDetailPage, {
+            ticket: ticket
           });
         })
         

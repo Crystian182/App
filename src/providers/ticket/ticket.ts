@@ -17,6 +17,7 @@ export class TicketProvider {
   getTicketByTeacherUrl: string = 'http://' + this.global.address + ':8080/SpringApp/ticket/getAllTeacherTickets';
   saveMessageUrl: string = 'http://' + this.global.address + ':8080/SpringApp/ticket/savemessage';
   getTicketByClassroomUrl: string = 'http://' + this.global.address + ':8080/SpringApp/ticket/getAllClassroomTickets';
+  getTicketByIdUrl: string = 'http://' + this.global.address + ':8080/SpringApp/ticket/getById';
 
   constructor(public http: HttpClient, public global: GlobalProvider) {
     console.log('Hello TicketProvider Provider');
@@ -32,5 +33,9 @@ export class TicketProvider {
 
   getAllTicketsByClassroom(idclassroom: number): Observable<Ticket[]>{
     return this.http.get<Ticket[]>(this.getTicketByClassroomUrl + '/' + idclassroom);
+  }
+
+  getById(idticket: number): Observable<Ticket[]>{
+    return this.http.get<Ticket[]>(this.getTicketByIdUrl + '/' + idticket);
   }
 }

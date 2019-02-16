@@ -53,6 +53,7 @@ import { LessonDetailPage } from '../pages/lesson-detail/lesson-detail';
 import { StarRatingModule } from 'ionic3-star-rating';
 import { FileDetailPage } from '../pages/file-detail/file-detail';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';  
+import { FileOpener } from '@ionic-native/file-opener';
 import { File as Fil } from '@ionic-native/file';  
 import { ExamPage } from '../pages/exam/exam';
 import { BachecaEsamiPage } from '../pages/bacheca-esami/bacheca-esami';
@@ -170,6 +171,7 @@ const firebase = {
     FileTransfer,  
     FileTransferObject,
     Fil,
+    FileOpener,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

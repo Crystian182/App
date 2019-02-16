@@ -7,6 +7,7 @@ import { User } from '../../models/User';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File as Fil } from '@ionic-native/file';  
 import { GlobalProvider } from '../../providers/global/global';
+import { FileOpener } from '@ionic-native/file-opener';
 
 /**
  * Generated class for the FileDetailPage page.
@@ -29,7 +30,7 @@ export class FileDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl : ModalController, public events: Events,
   public lessonProvider: LessonProvider, private transfer: FileTransfer,
-public fil: Fil, public global: GlobalProvider) {
+public fil: Fil, public fileOpener: FileOpener, public global: GlobalProvider) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.file = this.navParams.get('file');
     this.idlesson = this.navParams.get('idlesson');
@@ -76,6 +77,11 @@ public fil: Fil, public global: GlobalProvider) {
     const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + this.file.idFile;
       fileTransfer.download(url, this.fil.externalDataDirectory + this.file.name).then((entry) => {
         console.log('download complete: ' + entry.toURL());
+        var modalPage = this.modalCtrl.create('ModalConfirmPage');
+        modalPage.present();
+        this.fileOpener.open(entry.toURL(), 'application/com.sec.android.app.myfiles')
+          .then(() => console.log('File is opened'))
+          .catch(e => console.log('Error opening file', e));
       }, (error) => {
         console.log(error)
       });
