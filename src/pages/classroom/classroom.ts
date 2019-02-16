@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Class } from '../../models/Class';
 import { Building } from '../../models/Building';
 import { Ticket } from '../../models/Ticket';
@@ -7,6 +7,7 @@ import { TicketProvider } from '../../providers/ticket/ticket';
 import { User } from '../../models/User';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { TicketDetailPage } from '../ticket-detail/ticket-detail';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ClassroomPage page.
@@ -26,10 +27,13 @@ building: Building
 tickets: Ticket[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public ticketProvider: TicketProvider, private launchNavigator: LaunchNavigator) {
+  public ticketProvider: TicketProvider, private launchNavigator: LaunchNavigator, public events: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.classroom = this.navParams.get('classroom');
     this.building = this.navParams.get('building');
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
     this.ticketProvider.getAllTicketsByClassroom(this.classroom.id).subscribe(tickets => {
       this.tickets = tickets;
     })

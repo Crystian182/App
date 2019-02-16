@@ -8,6 +8,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File as Fil } from '@ionic-native/file';  
 import { GlobalProvider } from '../../providers/global/global';
 import { FileOpener } from '@ionic-native/file-opener';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the FileDetailPage page.
@@ -34,6 +35,9 @@ public fil: Fil, public fileOpener: FileOpener, public global: GlobalProvider) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.file = this.navParams.get('file');
     this.idlesson = this.navParams.get('idlesson');
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
     console.log(this.file)
     this.lessonProvider.getFeedbackFile(this.file.idFile).subscribe(feedbacks => {
       this.feedbacks = feedbacks

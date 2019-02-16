@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { Calendar } from '@ionic-native/calendar';
 import { User } from '../../models/User';
 import { DegreeCourse } from '../../models/DegreeCourse';
@@ -17,6 +17,7 @@ import { Lesson } from '../../models/Lesson';
 import { LessonProvider } from '../../providers/lesson/lesson';
 import { DatePipe } from '@angular/common';
 import { LessonDetailPage } from '../lesson-detail/lesson-detail';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the TeacherLessonPage page.
@@ -60,9 +61,11 @@ export class TeacherLessonPage {
     private launchNavigator: LaunchNavigator,
     public subjectProvider: SubjectProvider,
     public lessonProvider: LessonProvider,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, public eventz: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-
+    this.eventz.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
         this.subjectProvider.getAllTeacherSubject(this.user.iduser).subscribe(subjects => {
           this.subjects = subjects
           console.log(this.subjects)

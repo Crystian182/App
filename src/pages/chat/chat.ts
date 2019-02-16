@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, LoadingController } from 'ionic-angular';
 import { ChatChannelPage } from '../chat-channel/chat-channel';
 import { PreviewChat } from '../../models/PreviewChat';
 import { ChatProvider } from '../../providers/chat/chat';
@@ -30,13 +30,19 @@ export class ChatPage {
  previewChat: PreviewChat[] = [];
   user: User;
   starting: boolean = true;
+  loading: any
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chatService: ChatProvider,
               public events: Events,
               public fdb: AngularFireDatabase,
-              private _DomSanitizer: DomSanitizer) {
+              private _DomSanitizer: DomSanitizer,
+              private loadingCtrl: LoadingController) {
+                this.loading = this.loadingCtrl.create({
+                  content: 'Attendi...'
+              });
+              this.loading.present();
                 this.starting = true;
       this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
       this.events.subscribe('user:unauth', msg => {
@@ -189,7 +195,7 @@ export class ChatPage {
         
         setTimeout( () => {
           this.sortChat();
-          this.starting=false;}, 2000 );
+          this.loading.dismiss()}, 2000 );
         
   }
 

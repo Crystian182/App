@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { User } from '../../models/User';
 import { Building } from '../../models/Building';
 import { BuildingProvider } from '../../providers/building/building';
 import { BuildingPage } from '../building/building';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the DepartmentPage page.
@@ -22,8 +23,11 @@ export class DepartmentPage {
   buildings: Building[]
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public buildingProvider: BuildingProvider, public _DomSanitizer: DomSanitizer) {
+  public buildingProvider: BuildingProvider, public _DomSanitizer: DomSanitizer, public events: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
     this.buildingProvider.getAll().subscribe(buildings => {
       this.buildings = buildings
       console.log(this.buildings)

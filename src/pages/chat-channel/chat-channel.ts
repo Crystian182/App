@@ -1,4 +1,4 @@
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Events, Content } from 'ionic-angular';
 import { ChatProvider, UserInfo } from '../../providers/chat/chat';
@@ -43,6 +43,7 @@ export class ChatChannelPage {
   toUser: User;
   key: any;
   loading: boolean = true;
+  loadingg: any;
 
   constructor(public navParams: NavParams,
               private events: Events,
@@ -51,8 +52,11 @@ export class ChatChannelPage {
               public navCtrl: NavController,
               public fdb: AngularFireDatabase,
               public push: Push,
-              public toastCtrl: ToastController) {
-
+              public toastCtrl: ToastController,
+              private loadingCtrl: LoadingController) {
+                this.loadingg = this.loadingCtrl.create({
+              });
+              this.loadingg.present();
     this.events.subscribe('user:unauth', msg => {
       this.navCtrl.push(LoginPage)
     })
@@ -284,6 +288,8 @@ export class ChatChannelPage {
           
       }
     }
+    setTimeout( () => {
+      this.loadingg.dismiss()}, 2000 );
   }
 
   ionViewWillLeave() {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { User } from '../../models/User';
 import { Lesson } from '../../models/Lesson';
@@ -28,6 +28,7 @@ import { LessonDetailPage } from '../lesson-detail/lesson-detail';
 import { Ticket } from '../../models/Ticket';
 import { TicketProvider } from '../../providers/ticket/ticket';
 import { TicketDetailPage } from '../ticket-detail/ticket-detail';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the TeacherHomePage page.
@@ -61,10 +62,12 @@ export class TeacherHomePage {
     public _DomSanitizer: DomSanitizer,
     private transfer: FileTransfer,
     public fil: Fil,
-    public global: GlobalProvider) {
+    public global: GlobalProvider, public events: Events) {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
         console.log(this.user)
-    
+        this.events.subscribe('user:unauth', msg => {
+          this.navCtrl.push(LoginPage)
+        })
        this.lessonProvider.getTodayLessons(this.user.iduser).subscribe(lessons => {
          this.todayLessons = lessons;
        })

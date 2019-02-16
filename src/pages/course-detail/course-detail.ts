@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { User } from '../../models/User';
 import { SubjectStudy } from '../../models/SubjectStudy';
 import { SubjectProvider } from '../../providers/subject/subject';
 import { FileLesson } from '../../models/FileLesson';
 import { FileDetailPage } from '../file-detail/file-detail';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the CourseDetailPage page.
@@ -23,9 +24,12 @@ export class CourseDetailPage {
   files: FileLesson[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public subjectProvider: SubjectProvider) {
+  public subjectProvider: SubjectProvider, public events: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.subject = this.navParams.get('subject');
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
     this.subjectProvider.getSubjectFiles(this.subject.id).subscribe(files => {
       this.files = files;
       console.log(this.files)

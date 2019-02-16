@@ -29,15 +29,16 @@ export class LoginPage {
                 this.loading = this.loadingCtrl.create({
                   content: 'Attendi...'
               });
-                this.loginProvider.isTokenValid().subscribe(res => {
+                /*this.loginProvider.isTokenValid().subscribe(res => {
                   if(JSON.parse(window.localStorage['currentUser'] || '[]') != null && res == true) {
                     if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
+                      console.log('vaistud')
                       this.navCtrl.push(StudentHomePage);
                     } else {
                       this.navCtrl.push(TeacherHomePage);
                     }
                   } 
-                })
+                })*/
         
   }
 

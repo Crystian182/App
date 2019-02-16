@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { ExamEnrollment } from '../../models/ExamEnrollment';
 import { StudentHasDegreeCourse } from '../../models/StudentHasDegreeCourse';
 import { DegreeCourse } from '../../models/DegreeCourse';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the RecordBookPage page.
@@ -22,13 +23,15 @@ export class RecordBookPage {
   media: number;
   cfu: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events) {
     this.exams = this.navParams.get('exams');
     this.degreeCourse = this.navParams.get('degreeCourse');
     this.enrollment = this.navParams.get('enrollment');
     this.media = this.navParams.get('media');
     this.cfu = this.navParams.get('cfu');
-
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
     console.log(this.exams)
 
   }

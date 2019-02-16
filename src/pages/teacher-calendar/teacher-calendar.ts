@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Calendar } from '@ionic-native/calendar';
 import { User } from '../../models/User';
 import { DegreeCourse } from '../../models/DegreeCourse';
@@ -12,6 +12,7 @@ import { Scheduler } from '../../models/scheduler';
 import { TypeLesson } from '../../models/TypeLesson';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { CourseProvider } from '../../providers/course/course';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the CalendarPage page.
@@ -46,8 +47,11 @@ export class TeacherCalendarPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private calendar: Calendar, public studentProvider: StudentProvider,
-  public schedulerProvider: SchedulerProvider, private launchNavigator: LaunchNavigator) {
+  public schedulerProvider: SchedulerProvider, private launchNavigator: LaunchNavigator, public eventz: Events) {
       this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
+      this.eventz.subscribe('user:unauth', msg => {
+        this.navCtrl.push(LoginPage)
+      })
     this.schedulerProvider.getSchedulerTeacher(this.user.iduser).subscribe(typelessons => {
       this.typeLessons = typelessons
       console.log(this.typeLessons)

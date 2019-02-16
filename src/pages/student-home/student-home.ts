@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { User } from '../../models/User';
 import { Lesson } from '../../models/Lesson';
@@ -26,6 +26,7 @@ import { File as Fil } from '@ionic-native/file';
 import { GlobalProvider } from '../../providers/global/global';
 import { LessonDetailPage } from '../lesson-detail/lesson-detail';
 import { FileOpener } from '@ionic-native/file-opener';
+import { LoginPage } from '../login/login';
 /**
  * Generated class for the StudentHomePage page.
  *
@@ -61,9 +62,11 @@ export class StudentHomePage {
     public fil: Fil,
     public global: GlobalProvider,
   public modalCtrl: ModalController,
-public fileOpener: FileOpener) {
+public fileOpener: FileOpener, public events: Events) {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-
+        this.events.subscribe('user:unauth', msg => {
+          this.navCtrl.push(LoginPage)
+        })
        this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
         this.degreeCourse = {
           idcourse: enrollment.degreeCourse.idcourse,

@@ -8,6 +8,7 @@ import { FileProvider } from '../../providers/file/file';
 import { File } from '../../models/File';
 import { ModalController } from 'ionic-angular';
 import { FileDetailPage } from '../file-detail/file-detail';
+import { LoginPage } from '../login/login';
 
 
 /**
@@ -34,7 +35,9 @@ export class LessonDetailPage {
   public modalCtrl : ModalController, public events: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.lesson = this.navParams.get('lesson');
-      
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
     
     console.log(this.lesson)
     this.lessonProvider.getFeedback(this.lesson.idlesson).subscribe(feeds => {

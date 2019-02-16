@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { ExamProvider } from '../../providers/exam/exam';
 import { Exam } from '../../models/Exam';
 import { User } from '../../models/User';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ExamPage page.
@@ -20,8 +21,11 @@ export class ExamPage {
   availableExams: Exam[]
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public examProvider: ExamProvider, public alertCtrl: AlertController) {
+  public examProvider: ExamProvider, public alertCtrl: AlertController, public events: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
     this.examProvider.getAllAvailableByStudent(this.user.iduser).subscribe(exams => {
       this.availableExams = exams;
       console.log(this.availableExams)

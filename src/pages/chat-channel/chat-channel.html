@@ -22,9 +22,6 @@
       <ion-row *ngIf="messages.length == 0 && chat.subject && !loading" justify-content-center align-items-center style="padding-top: 200px">
           <p style="color: gray">Ti sei unito a questo gruppo</p>
         </ion-row>
-        <ion-row *ngIf="messages.length == 0 && chat.subject && loading" justify-content-center align-items-center style="padding-top: 100px">
-            <img src="assets/imgs/loading2.gif" style="text-align: center"/>
-          </ion-row>
   
     <div class="message-wrap" (scroll)="scrollToBottom()" style="overflow-y: auto;">
   

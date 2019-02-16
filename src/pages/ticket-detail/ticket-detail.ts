@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { Ticket } from '../../models/Ticket';
 import { User } from '../../models/User';
 import { TicketMessage } from '../../models/TicketMessage';
 import { TicketProvider } from '../../providers/ticket/ticket';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the TicketDetailPage page.
@@ -23,9 +24,12 @@ export class TicketDetailPage {
   message: String;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public alertCtrl: AlertController, public ticketProvider: TicketProvider) {
+    public alertCtrl: AlertController, public ticketProvider: TicketProvider, public events: Events) {
     this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
     this.ticket = this.navParams.get('ticket');
+    this.events.subscribe('user:unauth', msg => {
+      this.navCtrl.push(LoginPage)
+    })
   }
 
   ionViewDidLoad() {
