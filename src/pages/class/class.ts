@@ -22,7 +22,6 @@ export class ClassPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public classProvider: ClassProvider) {
     this.classProvider.getClassById(navParams.data).subscribe(classroom=>{
       this.classroom = classroom;
-      console.log(this.classroom)
     })
   }
 

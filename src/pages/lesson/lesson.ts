@@ -66,7 +66,6 @@ export class LessonPage {
       this.navCtrl.push(LoginPage)
     })
       this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
-        console.log(enrollment)
         for(let t of enrollment.degreeCourse.academicYear.terms) {
           this.terms.push({
             idterm: t.idterm,
@@ -96,7 +95,6 @@ export class LessonPage {
         }
         this.subjectProvider.getSubjectById(this.degreeCourse.idcourse).subscribe(subjects => {
           this.subjects = subjects
-          console.log(this.subjects)
         })
        })
 
@@ -108,7 +106,6 @@ export class LessonPage {
   }
 
   showSubjects() {
-    console.log(this.selectedSubject)
     this.valid=false
     if(this.selectedSubject == undefined || this.fromDate == undefined || this.toDate == undefined) {
       let alert = this.alertCtrl.create({

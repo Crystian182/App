@@ -39,6 +39,7 @@
     "angularfire2": "^5.0.0-rc.4",
     "cordova": "^8.1.2",
     "cordova-android": "7.1.4",
+    "cordova-ios": "4.5.5",
     "cordova-plugin-actionsheet": "2.3.3",
     "cordova-plugin-calendar": "5.1.4",
     "cordova-plugin-datepicker": "0.9.3",
@@ -109,7 +110,8 @@
       }
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

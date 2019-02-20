@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, LoadingController, ModalController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { User } from '../../models/User';
 import { Lesson } from '../../models/Lesson';
@@ -29,6 +29,7 @@ import { Ticket } from '../../models/Ticket';
 import { TicketProvider } from '../../providers/ticket/ticket';
 import { TicketDetailPage } from '../ticket-detail/ticket-detail';
 import { LoginPage } from '../login/login';
+import { FileOpener } from '@ionic-native/file-opener';
 
 /**
  * Generated class for the TeacherHomePage page.
@@ -49,6 +50,7 @@ export class TeacherHomePage {
   todayLessons: Lesson[];
   lessonFiles: FileLesson[];
   tickets: Ticket[] = [];
+  loading: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -62,9 +64,10 @@ export class TeacherHomePage {
     public _DomSanitizer: DomSanitizer,
     private transfer: FileTransfer,
     public fil: Fil,
-    public global: GlobalProvider, public events: Events) {
+    public global: GlobalProvider, public events: Events, public fileOpener: FileOpener,
+    private loadingCtrl: LoadingController,  public modalCtrl: ModalController) {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-        console.log(this.user)
+        
         this.events.subscribe('user:unauth', msg => {
           this.navCtrl.push(LoginPage)
         })
@@ -74,13 +77,11 @@ export class TeacherHomePage {
 
        this.ticketProvider.getAllTicketsByTeacher(this.user.iduser).subscribe(tickets => {
          this.tickets = tickets
-         console.log(tickets)
        })
 
 
       this.fileProvider.getLastFiles(this.user.iduser).subscribe(files => {
         this.lessonFiles = files;
-        console.log(this.lessonFiles)
       })
         
   }
@@ -98,14 +99,31 @@ export class TeacherHomePage {
   }
 
   download(file) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Scarico...'
+  });
+    this.loading.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + file.idFile;
       fileTransfer.download(url, this.fil.externalDataDirectory + file.name).then((entry) => {
         console.log('download complete: ' + entry.toURL());
+        var data = { file: file };
+        var modalPage = this.modalCtrl.create('ModalConfirmPage', data);
+        this.loading.dismiss()
+        modalPage.present();
+        this.fileOpener.open(entry.toURL(), 'application/com.sec.android.app.myfiles')
+          .then(() => console.log('File is opened'))
+          .catch(e => {
+            console.log('Error opening file', e)
+            this.fileOpener.open(entry.toURL(), 'application/com.lge.filemanager')
+            .then(() => console.log('File is opened'))
+            .catch(e => console.log('Error opening file', e))});
       }, (error) => {
-        console.log(error)
+        this.loading.dismiss()
       });
   }
+
+  
 
   showLesson(lesson) {
     this.navCtrl.push(LessonDetailPage, {
@@ -124,8 +142,15 @@ export class TeacherHomePage {
       return title
     }
     let label: String = title
-    console.log(label[19])
     return label.substring(0, 20) + '...'
+  }
+
+  trunk2(filename) {
+    if(filename[11] == undefined) {
+      return filename
+    }
+    let label: String = filename
+    return label.substring(0, 10) + '...'
   }
 
   }

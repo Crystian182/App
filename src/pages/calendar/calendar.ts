@@ -52,7 +52,6 @@ export class CalendarPage {
         this.navCtrl.push(LoginPage)
       })
       this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
-        console.log(enrollment)
         for(let t of enrollment.degreeCourse.academicYear.terms) {
           this.terms.push({
             idterm: t.idterm,
@@ -87,7 +86,6 @@ export class CalendarPage {
             description: enrollment.enrollmentStatus.description
           }
         }
-        console.log(this.degreeCourse)
        })
 
   }
@@ -99,7 +97,6 @@ export class CalendarPage {
   getScheduler() {
     this.schedulerProvider.getScheduler(this.selectedTerm, this.degreeCourse).subscribe(typelessons => {
       this.typeLessons = typelessons
-      console.log(this.typeLessons)
       this.valid = true;
     })
   }

@@ -29,7 +29,6 @@ export class BuildingPage {
     this.events.subscribe('user:unauth', msg => {
       this.navCtrl.push(LoginPage)
     })
-    console.log(this.building)
   }
 
   ionViewDidLoad() {

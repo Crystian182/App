@@ -32,7 +32,6 @@ export class CourseDetailPage {
     })
     this.subjectProvider.getSubjectFiles(this.subject.id).subscribe(files => {
       this.files = files;
-      console.log(this.files)
     })
   }
 

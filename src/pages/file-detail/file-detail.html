@@ -20,7 +20,7 @@
                 <ion-card-header>
                   <ion-row>
                     <ion-col col-2 style="text-align: center; padding-top: 7%">
-                        <ion-icon (click)="download()" name="download"></ion-icon>
+                        <p style="font-size: 20px"><ion-icon (click)="download()" name="download"></ion-icon></p>
                     </ion-col>
                     <ion-col col-10>
                         <ionic3-star-rating 
@@ -67,8 +67,8 @@
                   </ion-row>
                 </ion-card-content>
             </ion-card>
-            <ion-row *ngIf="canPostFeedbackFile() && !posted">
-                <button ion-button icon-left full (click)="addFeed()" style="background: transparent; color: #222222; border-radius: 12px">
+            <ion-row *ngIf="canPostFeedbackFile() && !posted" justify-content-center align-items-center style="padding-bottom: 10px">
+                <button ion-button icon-left (click)="addFeed()" style="background: transparent; color: #222222; border-radius: 12px">
                     <ion-icon name="add-circle" style="color: green"></ion-icon>
                     Aggiungi
                   </button>

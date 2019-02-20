@@ -28,7 +28,6 @@ export class ExamPage {
     })
     this.examProvider.getAllAvailableByStudent(this.user.iduser).subscribe(exams => {
       this.availableExams = exams;
-      console.log(this.availableExams)
     })
   }
 

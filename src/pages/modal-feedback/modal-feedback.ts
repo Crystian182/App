@@ -37,7 +37,6 @@ export class ModalFeedbackPage {
       this.idlesson = this.navParams.get('idlesson');
       this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
       events.subscribe('star-rating:changed', (starRating) => {
-        console.log(starRating)
         this.stars = starRating
       });
   }

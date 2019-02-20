@@ -24,8 +24,8 @@ export class FileProvider {
     console.log('Hello FileProvider Provider');
   }
 
-  getLastFiles(idstudent: number): Observable<FileLesson[]>{
-    return this.http.get<FileLesson[]>(this.getLastFilesUrl + '/' + idstudent);
+  getLastFiles(iduser: number): Observable<FileLesson[]>{
+    return this.http.get<FileLesson[]>(this.getLastFilesUrl + '/' + iduser);
   }
 
   downloadLessonFile(idfile: number) {

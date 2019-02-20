@@ -24,7 +24,7 @@ export class ClassroomPage {
   user: User;
 classroom: Class
 building: Building
-tickets: Ticket[];
+tickets: Ticket[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public ticketProvider: TicketProvider, private launchNavigator: LaunchNavigator, public events: Events) {
@@ -48,7 +48,6 @@ tickets: Ticket[];
       return title
     }
     let label: String = title
-    console.log(label[19])
     return label.substring(0, 20) + '...'
   }
 

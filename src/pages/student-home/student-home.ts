@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events, LoadingController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { User } from '../../models/User';
 import { Lesson } from '../../models/Lesson';
@@ -48,6 +48,7 @@ export class StudentHomePage {
   lessonFiles: FileLesson[];
   media: number = 0;
   cfu: number = 0;
+  loading: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -62,11 +63,13 @@ export class StudentHomePage {
     public fil: Fil,
     public global: GlobalProvider,
   public modalCtrl: ModalController,
-public fileOpener: FileOpener, public events: Events) {
+public fileOpener: FileOpener, public events: Events,
+private loadingCtrl: LoadingController) {
         this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
         this.events.subscribe('user:unauth', msg => {
           this.navCtrl.push(LoginPage)
         })
+        
        this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
         this.degreeCourse = {
           idcourse: enrollment.degreeCourse.idcourse,
@@ -115,7 +118,6 @@ public fileOpener: FileOpener, public events: Events) {
 
       this.fileProvider.getLastFiles(this.user.iduser).subscribe(files => {
         this.lessonFiles = files;
-        console.log(this.lessonFiles)
       })
         
   }
@@ -147,17 +149,27 @@ public fileOpener: FileOpener, public events: Events) {
   }
 
   download(file) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Scarico...'
+  });
+    this.loading.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + file.idFile;
       fileTransfer.download(url, this.fil.externalDataDirectory + file.name).then((entry) => {
         console.log('download complete: ' + entry.toURL());
-        var modalPage = this.modalCtrl.create('ModalConfirmPage');
+        var data = { file: file };
+        var modalPage = this.modalCtrl.create('ModalConfirmPage', data);
+        this.loading.dismiss()
         modalPage.present();
         this.fileOpener.open(entry.toURL(), 'application/com.sec.android.app.myfiles')
           .then(() => console.log('File is opened'))
-          .catch(e => console.log('Error opening file', e));
+          .catch(e => {
+            console.log('Error opening file', e)
+            this.fileOpener.open(entry.toURL(), 'application/com.lge.filemanager')
+            .then(() => console.log('File is opened'))
+            .catch(e => console.log('Error opening file', e))});
       }, (error) => {
-        console.log(error)
+        this.loading.dismiss()
       });
   }
 
@@ -165,6 +177,14 @@ public fileOpener: FileOpener, public events: Events) {
     this.navCtrl.push(LessonDetailPage, {
       lesson: lesson
     })
+  }
+
+  trunk(filename) {
+    if(filename[11] == undefined) {
+      return filename
+    }
+    let label: String = filename
+    return label.substring(0, 10) + '...'
   }
 
 

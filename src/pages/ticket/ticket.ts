@@ -30,7 +30,6 @@ export class TicketPage {
     })
     this.ticketProvider.getAllTicketsByTeacher(this.user.iduser).subscribe(tickets => {
       this.tickets = tickets
-      console.log(tickets)
     })
   }
 

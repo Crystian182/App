@@ -72,6 +72,7 @@ export class LoginPage {
       this.loading.dismiss()
       }, error => {
           this.showAlert('Utente non esistente')
+          this.loading.dismiss()
       });
     }
 

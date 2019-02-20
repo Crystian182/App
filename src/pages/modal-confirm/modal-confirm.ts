@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { File } from '../../models/File';
 
 /**
  * Generated class for the ModalConfirmPage page.
@@ -14,8 +15,10 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'modal-confirm.html',
 })
 export class ModalConfirmPage {
+  file: File;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl : ViewController) {
+    this.file = this.navParams.get('file');
   }
 
   ionViewDidLoad() {

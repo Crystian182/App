@@ -9,10 +9,13 @@
     <ion-row justify-content-center align-items-center style="height: 100%">
   <ion-card class="secondcard">
       <ion-card-content>
-            <ion-row  style="padding-bottom: 10px">
+            <ion-row style="padding-bottom: 10px">
                 <p style="font-size: 20px"><ion-icon style="color: green" name="cloud-done"></ion-icon>&nbsp;File scaricato</p>
             </ion-row>
-            <ion-row>
+            <ion-row style="padding-bottom: 10px">
+              <p style="font-size: 15px"><i>"{{file.name}}"</i> è stato scaricato.</p>
+          </ion-row>
+            <ion-row justify-content-center align-items-center>
                     <button ion-button (click)="closeModal()">Chiudi</button>
             </ion-row>
       </ion-card-content>

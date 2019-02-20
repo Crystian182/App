@@ -32,7 +32,6 @@ export class RecordBookPage {
     this.events.subscribe('user:unauth', msg => {
       this.navCtrl.push(LoginPage)
     })
-    console.log(this.exams)
 
   }
 

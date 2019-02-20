@@ -145,10 +145,10 @@
               <ion-grid>
                 
                 <ion-list *ngIf="lessonFiles">
-                    <ion-row *ngFor="let f of lessonFiles; let i=index" style="padding-bottom: 5px">
-                        <div *ngIf="i<4">
-                        <ion-icon (click)="download(f.file.idFile)" name="download"></ion-icon> &nbsp;{{f.file.name}} ({{f.lesson.typeLesson.subject.name}})
-                      </div>
+                    <ion-row>
+                            <button style="background-color: transparent; color: #222222" *ngFor="let f of  lessonFiles; let i=index" ion-button icon-left small full>
+                                <p *ngIf="i<4" (click)="download(f.file)"><ion-icon name="download"></ion-icon> &nbsp;{{trunk(f.file.name)}} ({{f.lesson.typeLesson.subject.name}})</p>
+                            </button>
                       </ion-row>
                 </ion-list>
                 <ion-list *ngIf="lessonFiles?.length == 0">

@@ -39,7 +39,6 @@ export class LessonDetailPage {
       this.navCtrl.push(LoginPage)
     })
     
-    console.log(this.lesson)
     this.lessonProvider.getFeedback(this.lesson.idlesson).subscribe(feeds => {
       this.feedbacks = feeds
       let i: number = 0
@@ -52,11 +51,9 @@ export class LessonDetailPage {
         this.stars = (starz/i).toFixed(1);
       }
       
-      console.log(this.feedbacks)
     })
     this.fileProvider.getLessonFiles(this.lesson.idlesson).subscribe(files => {
       this.files = files
-      console.log(this.files)
     })
   }
 
@@ -83,9 +80,8 @@ export class LessonDetailPage {
     this.events.subscribe('feedlesson:added', (feed) => {
       this.feedbacks.push(feed)
       this.posted = true;
-      if(this.feedbacks.length == 0) {
-        let starz: number = (Number(this.stars) + feed.stars)
-        this.stars = (starz).toFixed(1);
+      if(this.feedbacks.length == 1) {
+        this.stars = (feed.stars).toFixed(1);
       } else {
         let starz: number = (Number(this.stars) + feed.stars)/2
         this.stars = (starz).toFixed(1);
@@ -95,7 +91,6 @@ export class LessonDetailPage {
   }
 
   showFile(file) {
-    console.log(file)
    this.navCtrl.push(FileDetailPage,{
   file: file,
 idlesson: this.lesson.idlesson})

@@ -56,7 +56,6 @@ export class TicketDetailPage {
           date: new Date()
       } as TicketMessage).subscribe(newmes => {
         this.ticket.ticketmessages.push(newmes)
-        console.log(newmes)
         this.addmessage=false
       })
     }

@@ -160,7 +160,6 @@ private initializeFireBaseAndroid(): Promise<any> {
     .catch(error => console.error('Error getting token', error))
     .then(token => {
 
-      console.log(`The token is ${token}`);
 
       Promise.all([
         this.firebase.subscribe('firebase-app'), 	// Subscribe to the entire app
@@ -214,7 +213,6 @@ private subscribeToPushNotificationEvents(): void {
   // Handle incoming notifications
   this.firebase.onNotificationOpen().subscribe(
     (notification: any) => {
-      console.log(notification)
       !notification.tap
         ? console.log('The user was using the app when the notification arrived...')
         : console.log('The app was closed when the notification arrived...');
@@ -269,7 +267,6 @@ private subscribeToPushNotificationEvents(): void {
   );
 
   pushObject.on('notification').subscribe((notification: any) => {
-    console.log(notification);
     let toast = this.toastCtrl.create({
       message: notification.title + ": " + notification.message,
       duration: 5000,
@@ -277,7 +274,6 @@ private subscribeToPushNotificationEvents(): void {
       dismissOnPageChange: true
     });
     if(notification.type=='private' || notification.type=='public') {
-      console.log(this.nav.getActive())
       if(this.nav.getActive().component.name != 'ChatChannelPage') {
         toast.present();
       }

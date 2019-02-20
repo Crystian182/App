@@ -36,7 +36,6 @@ export class LoggedinPage {
   getUsers() {
     this.restProvider.getUsers()
       .then(data => {
-        console.log(data);
         this.users = data;
       })
       .catch(err => {
@@ -46,7 +45,6 @@ export class LoggedinPage {
 
   getUsersObs() {
     this.restProvider.getUsersObs().subscribe(data => {
-      console.log(data);
     })
   }
 

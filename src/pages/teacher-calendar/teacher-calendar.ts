@@ -54,7 +54,6 @@ export class TeacherCalendarPage {
       })
     this.schedulerProvider.getSchedulerTeacher(this.user.iduser).subscribe(typelessons => {
       this.typeLessons = typelessons
-      console.log(this.typeLessons)
     })
       
   }

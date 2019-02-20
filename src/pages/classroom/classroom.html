@@ -33,20 +33,22 @@
             <ion-card-content>
               <ion-card>
               <ion-card-header><h1>Strumenti didattica</h1></ion-card-header>
-            <ion-card-content>
+            <ion-card-content *ngIf="classroom.tool">
               <ion-card *ngFor="let t of classroom.tool">
                 <ion-card-content>
                         <ion-row>
                             <p style="font-size: 15px"><ion-icon name="hammer"></ion-icon>&nbsp;{{t.quantity}}x {{t.name}}</p>
                             </ion-row>
                 </ion-card-content>
-                  
+                <ion-card-content *ngIf="!classroom.tool">
+                  <p>Nessuno strumento presente.</p>
+                  </ion-card-content>
               </ion-card>
               </ion-card-content>
             </ion-card>
             <ion-card *ngIf="user.type=='teacher'">
                 <ion-card-header><h1>Segnalazioni</h1></ion-card-header>
-              <ion-card-content>
+              <ion-card-content *ngIf="tickets.length > 0">
                 <ion-card *ngFor="let t of tickets">
                   <ion-card-content>
                       <button ion-item style="background: transparent; padding: 0%;" (click)="showTicket(t)">
@@ -71,9 +73,12 @@
                           </ion-row>
                         </button>
                   </ion-card-content>
-                    
+                  
                 </ion-card>
                 </ion-card-content>
+                <ion-card-content *ngIf="tickets.length == 0">
+                    <p>Nessuna segnalazione presente.</p>
+                    </ion-card-content>
               </ion-card>
         </ion-card-content>
         

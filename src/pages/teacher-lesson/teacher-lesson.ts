@@ -68,7 +68,6 @@ export class TeacherLessonPage {
     })
         this.subjectProvider.getAllTeacherSubject(this.user.iduser).subscribe(subjects => {
           this.subjects = subjects
-          console.log(this.subjects)
         })
 
        
@@ -79,7 +78,6 @@ export class TeacherLessonPage {
   }
 
   showSubjects() {
-    console.log(this.selectedSubject)
     this.valid=false
     if(this.selectedSubject == undefined || this.fromDate == undefined || this.toDate == undefined) {
       let alert = this.alertCtrl.create({
