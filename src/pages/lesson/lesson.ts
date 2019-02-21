@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events, Platform } from 'ionic-angular';
 import { Calendar } from '@ionic-native/calendar';
 import { User } from '../../models/User';
 import { DegreeCourse } from '../../models/DegreeCourse';
@@ -18,6 +18,7 @@ import { LessonProvider } from '../../providers/lesson/lesson';
 import { DatePipe } from '@angular/common';
 import { LessonDetailPage } from '../lesson-detail/lesson-detail';
 import { LoginPage } from '../login/login';
+import { StudentHomePage } from '../student-home/student-home';
 
 /**
  * Generated class for the LessonPage page.
@@ -65,6 +66,9 @@ export class LessonPage {
     this.eventz.subscribe('user:unauth', msg => {
       this.navCtrl.push(LoginPage)
     })
+    /*platform.registerBackButtonAction(() => {
+      this.navCtrl.push(StudentHomePage)
+    });*/
       this.studentProvider.getStudentCourse(this.user.iduser).subscribe(enrollment => {
         for(let t of enrollment.degreeCourse.academicYear.terms) {
           this.terms.push({

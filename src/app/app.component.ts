@@ -32,6 +32,7 @@ import { TeacherLessonPage } from '../pages/teacher-lesson/teacher-lesson';
 import { LessonDetailPage } from '../pages/lesson-detail/lesson-detail';
 import { LessonProvider } from '../providers/lesson/lesson';
 import { TicketProvider } from '../providers/ticket/ticket';
+import { App } from 'ionic-angular';
 
 export interface MenuItem {
   title: string;
@@ -62,8 +63,6 @@ export class MyApp {
       public ticketProvider: TicketProvider, public alertCtrl: AlertController, public firebase: Firebase, public push: Push, public toastCtrl: ToastController) {
     this.initializeApp();
     
-    
-    
     events.subscribe('user:loggedin', (user) => {
       this.user = user;
     });
@@ -93,6 +92,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
+      
 
       if(JSON.parse(window.localStorage['currentUser'] || '[]') != null) {
         if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
@@ -267,13 +267,16 @@ private subscribeToPushNotificationEvents(): void {
   );
 
   pushObject.on('notification').subscribe((notification: any) => {
+    console.log(notification)
     let toast = this.toastCtrl.create({
       message: notification.title + ": " + notification.message,
       duration: 5000,
       position: 'top',
       dismissOnPageChange: true
     });
-    if(notification.type=='private' || notification.type=='public') {
+    console.log(this.nav.getActive())
+    if(notification.additionalData.type=='private' || notification.additionalData.type=='public') {
+      
       if(this.nav.getActive().component.name != 'ChatChannelPage') {
         toast.present();
       }
