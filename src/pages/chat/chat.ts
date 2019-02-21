@@ -195,7 +195,7 @@ export class ChatPage {
         
         setTimeout( () => {
           this.sortChat();
-          this.loading.dismiss()}, 2000 );
+          this.loading.dismiss()}, 3000 );
         
   }
 

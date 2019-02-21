@@ -63,25 +63,7 @@ export class MyApp {
       public ticketProvider: TicketProvider, public alertCtrl: AlertController, public firebase: Firebase, public push: Push, public toastCtrl: ToastController) {
     this.initializeApp();
     
-    events.subscribe('user:loggedin', (user) => {
-      this.user = user;
-    });
-    this.loginService.isTokenValid().subscribe(res => {
-      if(res == false) {
-        this.rootPage = LoginPage;
-      } else {
-        if(JSON.parse(window.localStorage['currentUser'] || '[]') != null){
-          this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
-          if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
-            this.rootPage = StudentHomePage;
-          } else {
-            this.rootPage = TeacherHomePage;
-          }
-        } else {
-          this.rootPage = LoginPage;
-        }
-      }
-    })
+    
     
 
   }
@@ -92,6 +74,27 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
+      
+      this.events.subscribe('user:loggedin', (user) => {
+        this.user = user;
+      });
+      this.loginService.isTokenValid().subscribe(res => {
+        if(res == false) {
+          this.rootPage = LoginPage;
+        } else {
+          if(JSON.parse(window.localStorage['currentUser'] || '[]') != null){
+            this.user = JSON.parse(window.localStorage['currentUser'] || '[]');
+            if(JSON.parse(window.localStorage['currentUser'] || '[]').type == 'student') {
+              console.log('rootstudent')
+              console.log(this.nav.getActive())
+              this.rootPage = StudentHomePage;
+            } else {
+              this.rootPage = TeacherHomePage;
+            }
+          } else {
+            this.rootPage = LoginPage;
+          }
+        }
       
 
       if(JSON.parse(window.localStorage['currentUser'] || '[]') != null) {
@@ -153,6 +156,7 @@ export class MyApp {
 				console.log('Push notifications are not enabled since this is not a real device');
 			}
   })
+})
 }
 
 private initializeFireBaseAndroid(): Promise<any> {
@@ -216,12 +220,12 @@ private subscribeToPushNotificationEvents(): void {
       !notification.tap
         ? console.log('The user was using the app when the notification arrived...')
         : console.log('The app was closed when the notification arrived...');
-
         if(notification.tap) {
         if(notification.type == 'private') {
-          this.nav.push(ChatChannelPage, {
+          /*this.nav.push(ChatChannelPage, {
             chat: {toUser: {iduser: notification.iduser, name: notification.name, surname: notification.surname}}         
-          });
+          });*/
+          this.nav.push(ChatPage);
         } else if(notification.type == 'public'){
           this.nav.push(ChatPage);
         } else if(notification.type == 'feedlesson'){
@@ -229,7 +233,7 @@ private subscribeToPushNotificationEvents(): void {
             lesson: {idlesson: notification.additionalData}
           });
         }
-      }
+      } 
     },
     error => {
       console.error('Error getting the notification', error);
@@ -239,7 +243,8 @@ private subscribeToPushNotificationEvents(): void {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    //this.nav.setRoot(page.component);
+    this.nav.push(page.component);
   }
 
   logout() {

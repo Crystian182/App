@@ -85,7 +85,7 @@ public fil: Fil, public fileOpener: FileOpener, public global: GlobalProvider, p
     this.loading.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + this.file.idFile;
-      fileTransfer.download(url, this.fil.externalDataDirectory + this.file.name).then((entry) => {
+      fileTransfer.download(url, this.fil.externalRootDirectory + "Download/" + this.file.name).then((entry) => {
         console.log('download complete: ' + entry.toURL());
         var data = { file: this.file };
         var modalPage = this.modalCtrl.create('ModalConfirmPage', data);

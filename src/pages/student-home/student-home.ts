@@ -45,7 +45,7 @@ export class StudentHomePage {
   enrollment: StudentHasDegreeCourse;
   todayLessons: Lesson[];
   exams: ExamEnrollment[];
-  lessonFiles: FileLesson[];
+  lessonFiles: FileLesson[] = [];
   media: number = 0;
   cfu: number = 0;
   loading: any;
@@ -117,7 +117,14 @@ private loadingCtrl: LoadingController) {
       })
 
       this.fileProvider.getLastFiles(this.user.iduser).subscribe(files => {
-        this.lessonFiles = files;
+        if(files) {
+          for (let i = 0; i < files.length ; i++) {
+            this.lessonFiles.push(files[i])
+            if(i==4) {
+              break;
+            }
+          }
+        }
       })
         
   }
@@ -155,7 +162,7 @@ private loadingCtrl: LoadingController) {
     this.loading.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
     const url = 'http://' + this.global.address + ':8080/SpringApp/file/download/filelesson/' + file.idFile;
-      fileTransfer.download(url, this.fil.externalDataDirectory + file.name).then((entry) => {
+      fileTransfer.download(url, this.fil.externalRootDirectory + "Download/" + file.name).then((entry) => {
         console.log('download complete: ' + entry.toURL());
         var data = { file: file };
         var modalPage = this.modalCtrl.create('ModalConfirmPage', data);
